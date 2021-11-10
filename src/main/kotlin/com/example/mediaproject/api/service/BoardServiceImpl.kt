@@ -5,12 +5,16 @@ import com.example.mediaproject.api.request.PostBoardRequest
 import com.example.mediaproject.api.response.BoardResponse
 import com.example.mediaproject.api.response.boardResponseOf
 import com.example.mediaproject.common.exception.BadRequestException
+import com.example.mediaproject.db.repository.BoardRepositorySupport
 import com.example.mediaproject.db.entity.Board
 import com.example.mediaproject.db.entity.User
 import com.example.mediaproject.db.entity.patchOf
 import com.example.mediaproject.db.entity.postOf
 import com.example.mediaproject.db.repository.BoardRepository
 import com.example.mediaproject.db.repository.UserRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 import kotlin.streams.toList
@@ -18,6 +22,7 @@ import kotlin.streams.toList
 @Service
 class BoardServiceImpl(
     private val boardRepository: BoardRepository,
+    private val boardRepositorySupport: BoardRepositorySupport,
     private val userRepository: UserRepository
 ): BoardService {
 
@@ -52,9 +57,10 @@ class BoardServiceImpl(
         return boardResponseOf(foundBoard)
     }
 
-    override fun findAllBoard(): List<BoardResponse> {
-        val boardList = boardRepository.findAll()
-        return boardList.stream().map { boardResponseOf(it) }.toList()
+    override fun findAllBoard(pageable: Pageable, q: String?): Page<BoardResponse> {
+        val boardPage: Page<Board> = boardRepositorySupport.findAllBoardPaging(pageable, q)
+        val boardResponseList: List<BoardResponse> = boardPage.content.stream().map { boardResponseOf(it) }.toList()
+        return PageImpl(boardResponseList, pageable, boardPage.totalElements)
     }
 
 }

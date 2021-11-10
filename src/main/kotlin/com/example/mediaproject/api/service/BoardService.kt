@@ -3,7 +3,10 @@ package com.example.mediaproject.api.service
 import com.example.mediaproject.api.request.PatchBoardRequest
 import com.example.mediaproject.api.request.PostBoardRequest
 import com.example.mediaproject.api.response.BoardResponse
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+
 
 @Service
 interface BoardService{
@@ -11,5 +14,5 @@ interface BoardService{
     fun patchBoard(boardId: Long, patchBoardRequest: PatchBoardRequest): BoardResponse
     fun deleteBoard(boardId: Long): Boolean
     fun findBoardById(boardId: Long): BoardResponse
-    fun findAllBoard(): List<BoardResponse>
+    fun findAllBoard(pageable: Pageable, q: String?): Page<BoardResponse>
 }

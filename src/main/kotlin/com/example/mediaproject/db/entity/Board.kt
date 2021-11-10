@@ -12,13 +12,14 @@ class Board {
     var id: Long = -1
     val createdAt : LocalDateTime = LocalDateTime.now()
     var updatedAt : LocalDateTime? = null
-    val deleteAt: LocalDateTime? = null
 
     @ManyToOne(fetch = FetchType.LAZY)
     lateinit var user: User
 
     lateinit var title: String
     lateinit var content: String
+    var likeCount: Long = 0
+    var commentCount: Long = 0
 
 }
 fun postOf(postBoardRequest: PostBoardRequest, user: User): Board{

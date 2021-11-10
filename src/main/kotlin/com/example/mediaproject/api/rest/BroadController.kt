@@ -4,8 +4,13 @@ import com.example.mediaproject.api.request.PatchBoardRequest
 import com.example.mediaproject.api.request.PostBoardRequest
 import com.example.mediaproject.api.response.BoardResponse
 import com.example.mediaproject.api.service.BoardService
+import io.swagger.annotations.ApiImplicitParam
+import io.swagger.annotations.ApiImplicitParams
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import springfox.documentation.annotations.ApiIgnore
 
 @RequestMapping("/media-project/up-down/boards")
 @RestController
@@ -47,9 +52,16 @@ class BroadController(
     }
 
     @GetMapping("/list")
+    @ApiImplicitParams(value = [
+        ApiImplicitParam(name = "page", value = "페이지 넘버", defaultValue = "", paramType = "query", dataTypeClass = Int::class),
+        ApiImplicitParam(name = "size", value = "페이지 크기", defaultValue = "", paramType = "query", dataTypeClass = Int::class),
+        ApiImplicitParam(name = "sort", value = "정렬", defaultValue = "", paramType = "query", dataTypeClass = Int::class)
+    ])
     fun findAllBoard(
-    ): ResponseEntity<List<BoardResponse>>{
-        val response: List<BoardResponse> = boardService.findAllBoard()
+        @ApiIgnore pageable: Pageable,
+        @RequestParam("q", required = false) q: String?
+    ): ResponseEntity<Page<BoardResponse>> {
+        val response: Page<BoardResponse> = boardService.findAllBoard(pageable, q)
         return ResponseEntity.ok(response)
     }
 }
