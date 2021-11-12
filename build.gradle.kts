@@ -30,6 +30,9 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.5.5")
+
+
     // security
 
     // db
