@@ -14,6 +14,6 @@ class AccountController(
 ) {
     @GetMapping("/test")
     fun test(model: Model): String{
-        return "sample"
+        return "/Users/phamkien/MediaProjectApi/src/main/resources/templates/sample"
     }
 }
