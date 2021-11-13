@@ -33,6 +33,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.5.5")
 
 
+    implementation ("org.apache.tomcat.embed:tomcat-embed-jasper")
+    implementation ("javax.servlet:jstl")
+
     // security
 
     // db
@@ -40,7 +43,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.querydsl:querydsl-jpa:4.3.1")
-    implementation("com.querydsl:querydsl-apt:4.3.1")
     kapt("com.querydsl:querydsl-apt:4.3.1:jpa")
 
 

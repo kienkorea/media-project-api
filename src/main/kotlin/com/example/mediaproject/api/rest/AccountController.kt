@@ -3,6 +3,7 @@ package com.example.mediaproject.api.rest
 import com.example.mediaproject.api.service.UserService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -12,8 +13,16 @@ import org.springframework.web.bind.annotation.RestController
 class AccountController(
     private val userService: UserService
 ) {
-    @GetMapping("/test")
+    @GetMapping("/home")
     fun test(model: Model): String{
-        return "/Users/phamkien/MediaProjectApi/src/main/resources/templates/sample"
+
+        return "home"
+    }
+
+    @GetMapping
+    fun testJSP(model: Model): String{
+        model["greeting"] = "Hello Spring MVC"
+
+        return "test"
     }
 }

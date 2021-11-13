@@ -33,10 +33,10 @@ class ApplicationWebConfig : WebMvcConfigurerAdapter(),
     @Bean
     fun templateResolver(): SpringResourceTemplateResolver {
         return SpringResourceTemplateResolver()
-            .apply { prefix = "" }
-            .apply { suffix = ".html"}
-            .apply { templateMode = TemplateMode.HTML }
-            .apply { setApplicationContext(applicationContext) }
+            .apply { prefix = "WEB-INF/pages/" }
+            .apply { suffix = ".jsp"}
+//            .apply { templateMode = TemplateMode.HTML }
+//            .apply { setApplicationContext(applicationContext) }
     }
 
     @Bean
