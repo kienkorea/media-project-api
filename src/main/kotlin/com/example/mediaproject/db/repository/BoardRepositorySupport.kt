@@ -18,7 +18,7 @@ class BoardRepositorySupport(
 
     fun findAllBoardPaging(pageable: Pageable, q: String?): Page<Board> {
         val where = BooleanBuilder()
-        where.and(qBoard.title.contains(q))
+        if(q != null) where.and(qBoard.title.contains(q))
         val query: JPAQuery<Board> = jpaQueryFactory.select(qBoard)
             .from(qBoard)
             .where(where)

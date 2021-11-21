@@ -45,6 +45,8 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:4.3.1")
     kapt("com.querydsl:querydsl-apt:4.3.1:jpa")
 
+    // https://mvnrepository.com/artifact/io.split.client/java-client
+    implementation("io.split.client:java-client:3.3.4")
 
     // swagger
     implementation("io.springfox:springfox-boot-starter:3.0.0")

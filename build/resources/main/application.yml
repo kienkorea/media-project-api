@@ -1,9 +1,14 @@
 server:
   port: 8088
+#  servlet:
+#    context-path: /
+#    encoding:
+#      charset: UTF-8
+#      enabled: true
 
 spring:
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/media-project
     username: root
     password: kien1997
@@ -11,6 +16,25 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
-logging:
-  level:
-    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    show-sql: true
+
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/pages
+#      suffix: .jsp
+#
+#  thymeleaf:
+#    cache: true
+#    check-template-location: true
+#    servlet:
+#      content-type: text/html
+#    enabled: true
+#    encoding: UTF-8
+#    excluded-view-names:
+#    mode: HTML5
+#    prefix: classpath:/templates
+#    suffix: html
+#
+#logging:
+#  level:
+#    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG

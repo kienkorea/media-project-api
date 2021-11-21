@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping("/media-project/up-down/accounts")
-@Controller
+@RestController
 class AccountController(
     private val userService: UserService
 ) {
-    @GetMapping("/home")
+    @GetMapping("/login")
     fun test(model: Model): String{
 
         return "home"
     }
 
-    @GetMapping
+    @GetMapping("/test")
     fun testJSP(model: Model): String{
         model["greeting"] = "Hello Spring MVC"
 

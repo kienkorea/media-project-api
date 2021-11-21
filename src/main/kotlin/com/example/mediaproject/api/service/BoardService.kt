@@ -15,4 +15,5 @@ interface BoardService{
     fun deleteBoard(boardId: Long): Boolean
     fun findBoardById(boardId: Long): BoardResponse
     fun findAllBoard(pageable: Pageable, q: String?): Page<BoardResponse>
+    fun findBoardList(): List<BoardResponse>
 }

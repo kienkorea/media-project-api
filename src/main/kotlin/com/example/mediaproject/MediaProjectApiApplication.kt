@@ -1,5 +1,6 @@
 package com.example.mediaproject
 
+import org.springframework.boot.Banner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
@@ -9,5 +10,7 @@ import org.springframework.boot.runApplication
 class MediaProjectApiApplication
 
 fun main(args: Array<String>) {
-    runApplication<MediaProjectApiApplication>(*args)
+    runApplication<MediaProjectApiApplication>(*args){
+        setBannerMode(Banner.Mode.OFF)
+    }
 }

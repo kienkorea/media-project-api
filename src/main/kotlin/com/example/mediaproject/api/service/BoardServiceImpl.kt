@@ -63,4 +63,9 @@ class BoardServiceImpl(
         return PageImpl(boardResponseList, pageable, boardPage.totalElements)
     }
 
+    override fun findBoardList(): List<BoardResponse> {
+        val boardList: List<Board> = boardRepository.findAll()
+        return boardList.stream().map { boardResponseOf(it) }.toList()
+    }
+
 }
