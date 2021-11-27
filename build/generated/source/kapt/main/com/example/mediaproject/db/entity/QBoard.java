@@ -32,6 +32,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final NumberPath<Long> likeCount = createNumber("likeCount", Long.class);
 
+    public final NumberPath<Long> seqValue = createNumber("seqValue", Long.class);
+
     public final StringPath title = createString("title");
 
     public final DateTimePath<java.time.LocalDateTime> updatedAt = createDateTime("updatedAt", java.time.LocalDateTime.class);
