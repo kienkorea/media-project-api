@@ -1,10 +1,10 @@
 package com.example.mediaproject.api.service
 
-import com.example.mediaproject.api.response.StockCompanyResponse
-import org.springframework.data.domain.Page
+import com.example.mediaproject.api.response.PageStockCompanyCustomResponse
+import org.springframework.http.ResponseEntity
 
 
 interface StockCompanyService {
-    fun getCompanyStock(): Page<*>
+    fun getCompanyStockApi(page: Int, perPage: Int): ResponseEntity<PageStockCompanyCustomResponse>
 
 }
