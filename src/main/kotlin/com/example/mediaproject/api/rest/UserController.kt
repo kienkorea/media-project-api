@@ -3,6 +3,7 @@ package com.example.mediaproject.api.rest
 import com.example.mediaproject.api.request.CommentRequest
 import com.example.mediaproject.api.request.PostUserRequest
 import com.example.mediaproject.api.response.CommentResponse
+import com.example.mediaproject.api.response.UserAndBoardResponse
 import com.example.mediaproject.api.response.UserResponse
 import com.example.mediaproject.api.service.CommentService
 import com.example.mediaproject.api.service.UserService
@@ -20,6 +21,14 @@ class UserController(
         @RequestAttribute userId: Long
     ): ResponseEntity<UserResponse> {
         val response = userService.getMe(userId)
+        return ResponseEntity.ok(response)
+    }
+
+    @GetMapping("/my-board")
+    fun getAllMyBoard(
+        @RequestAttribute userId: Long
+    ): ResponseEntity<UserAndBoardResponse> {
+        val response = userService.getAllMyBoard(userId)
         return ResponseEntity.ok(response)
     }
 

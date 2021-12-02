@@ -30,8 +30,8 @@ class AccountController(
         httpResponse: HttpServletResponse,
         @RequestBody signInRequest: SignInRequest
     ): ResponseEntity<AccountResponse> {
-        val checkExistUserId: AccountResponse = accountService.signIn(signInRequest, httpResponse)
-        return  ResponseEntity.ok(checkExistUserId)
+        val response: AccountResponse = accountService.signIn(signInRequest, httpResponse)
+        return  ResponseEntity.ok(response)
     }
 
     @PostMapping("/check-duplicate-userid")
