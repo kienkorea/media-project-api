@@ -31,12 +31,21 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.5.5")
-
-
     implementation ("org.apache.tomcat.embed:tomcat-embed-jasper")
     implementation ("javax.servlet:jstl")
 
+    // Parse from String to Json using Klaxon
+    implementation ("com.beust:klaxon:5.5")
+
+    // PhoneNumberUtils
+    implementation("com.googlecode.libphonenumber:libphonenumber:3.5")
+
     // security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
+    // JWT
+    implementation("com.auth0:java-jwt:3.10.3")
+    implementation("com.nimbusds:oauth2-oidc-sdk:7.3") // refresh token
 
     // db
      runtimeOnly("mysql:mysql-connector-java")

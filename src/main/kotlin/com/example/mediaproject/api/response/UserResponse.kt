@@ -1,22 +1,22 @@
 package com.example.mediaproject.api.response
 
+import com.example.mediaproject.common.utils.maskPhoneNumber
 import com.example.mediaproject.db.entity.User
+import com.example.mediaproject.db.enumerable.UserRole
 
 class UserResponse(
     val id: Long,
-    val userId: String,
-    val password: String,
-    val name: String?,
+    val name: String,
     val email: String?,
-    val phoneNumber: String?
+    val phoneNumber: String,
+    val userRole: UserRole
 )
-fun of(user: User): UserResponse{
+fun userResponseOf(user: User): UserResponse{
     return UserResponse(
         user.id,
-        user.userId,
-        user.password,
         user.name,
         user.email,
-        user.phoneNumber
+        maskPhoneNumber(user.phoneNumber),
+        user.userRole
     )
 }

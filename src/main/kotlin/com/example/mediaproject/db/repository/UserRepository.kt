@@ -7,6 +7,6 @@ import java.util.*
 
 @Repository
 interface UserRepository: JpaRepository<User, Long> {
-    fun existsByUserId(userId: String): Boolean
-    fun findByUserIdAndPassword(userId: String, password: String): Optional<User>
+    fun findByPhoneNumber(phoneNumber: String): User?
+    fun findAllByPhoneNumber(phoneNumber: String): MutableList<User>
 }

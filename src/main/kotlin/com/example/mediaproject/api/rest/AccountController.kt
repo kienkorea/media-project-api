@@ -1,28 +1,44 @@
 package com.example.mediaproject.api.rest
 
+import com.example.mediaproject.api.request.PostUserRequest
+import com.example.mediaproject.api.request.SignInRequest
+import com.example.mediaproject.api.request.SignUpRequest
+import com.example.mediaproject.api.response.AccountResponse
+import com.example.mediaproject.api.service.AccountService
 import com.example.mediaproject.api.service.UserService
-import org.springframework.stereotype.Controller
-import org.springframework.ui.Model
-import org.springframework.ui.set
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpServletResponse
 
 @RequestMapping("/media-project/up-down/accounts")
 @RestController
 class AccountController(
-    private val userService: UserService
+    private val accountService: AccountService
 ) {
-    @GetMapping("/login")
-    fun test(model: Model): String{
 
-        return "home"
+    @PostMapping("/sign-up")
+    fun signUp(
+        httpResponse: HttpServletResponse,
+        @RequestBody signUpRequest: SignUpRequest
+    ): ResponseEntity<AccountResponse> {
+        val response: AccountResponse = accountService.signUp(signUpRequest, httpResponse)
+        return ResponseEntity.ok(response)
     }
 
-    @GetMapping("/test")
-    fun testJSP(model: Model): String{
-        model["greeting"] = "Hello Spring MVC"
+    @PostMapping("/sign-in")
+    fun signIn(
+        httpResponse: HttpServletResponse,
+        @RequestBody signInRequest: SignInRequest
+    ): ResponseEntity<AccountResponse> {
+        val checkExistUserId: AccountResponse = accountService.signIn(signInRequest, httpResponse)
+        return  ResponseEntity.ok(checkExistUserId)
+    }
 
-        return "test"
+    @PostMapping("/check-duplicate-userid")
+    fun checkDuplicateId(
+        @RequestParam phoneNumber: String
+    ): ResponseEntity<Boolean> {
+        val checkDuplicatePhoneNumber = accountService.checkDuplicate(phoneNumber)
+        return  ResponseEntity.ok(checkDuplicatePhoneNumber)
     }
 }
