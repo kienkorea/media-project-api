@@ -2,9 +2,7 @@ package com.example.mediaproject.db.entity
 
 import com.example.mediaproject.api.request.PatchBoardRequest
 import com.example.mediaproject.api.request.PostBoardRequest
-import org.hibernate.annotations.GenerationTime
 import java.time.LocalDateTime
-import javax.annotation.Generated
 import javax.persistence.*
 
 
@@ -16,22 +14,18 @@ class Board {
     val createdAt : LocalDateTime = LocalDateTime.now()
     var updatedAt : LocalDateTime? = null
 
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Generated(GenerationTime.INSERT)
-//    @Column(name="seq_value", unique=true, nullable=false, precision=10, scale=0)
-//    var seqValue: Long = 0
+    lateinit var title: String
+    lateinit var content: String
 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_value")
-    @SequenceGenerator(name = "seq_value", allocationSize = 5)
-    private val seqValue: Long = 0
+//    var likeCount: Long = 0
+//    var commentCount: Long = 0
 
     @ManyToOne(fetch = FetchType.LAZY)
     lateinit var user: User
 
-    lateinit var title: String
-    lateinit var content: String
-    var likeCount: Long = 0
-    var commentCount: Long = 0
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+    var commentList: MutableList<Comment> = mutableListOf()
+
 
 }
 fun postOf(postBoardRequest: PostBoardRequest, user: User): Board{

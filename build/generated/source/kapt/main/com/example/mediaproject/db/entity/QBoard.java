@@ -22,17 +22,13 @@ public class QBoard extends EntityPathBase<Board> {
 
     public static final QBoard board = new QBoard("board");
 
-    public final NumberPath<Long> commentCount = createNumber("commentCount", Long.class);
+    public final ListPath<Comment, QComment> commentList = this.<Comment, QComment>createList("commentList", Comment.class, QComment.class, PathInits.DIRECT2);
 
     public final StringPath content = createString("content");
 
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
-
-    public final NumberPath<Long> likeCount = createNumber("likeCount", Long.class);
-
-    public final NumberPath<Long> seqValue = createNumber("seqValue", Long.class);
 
     public final StringPath title = createString("title");
 

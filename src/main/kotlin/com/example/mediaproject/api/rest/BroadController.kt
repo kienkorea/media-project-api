@@ -9,11 +9,8 @@ import io.swagger.annotations.ApiImplicitParams
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import springfox.documentation.annotations.ApiIgnore
-import org.springframework.ui.Model
-import org.springframework.ui.set
 
 @RequestMapping("/media-project/up-down/boards")
 @RestController
@@ -68,9 +65,4 @@ class BroadController(
         return ResponseEntity.ok(response)
     }
 
-    @GetMapping("/list-board")
-    fun findListBoard(model: Model): String{
-        model["boards"] = boardService.findBoardList()
-        return "board"
-    }
 }

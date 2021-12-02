@@ -1,31 +1,59 @@
 package com.example.mediaproject.db.entity
 
 import com.example.mediaproject.api.request.PostUserRequest
+import com.example.mediaproject.db.enumerable.UserRole
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
-class User {
+class User: UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = -1
     val createdAt : LocalDateTime = LocalDateTime.now()
     var updatedAt : LocalDateTime? = null
-    lateinit var userId: String
-    lateinit var password: String
+    lateinit var loginPassWord: String
     lateinit var name: String
     lateinit var email: String
     lateinit var phoneNumber: String
+    var isDeleted: Boolean = false
+    var deletedAt : LocalDateTime? = null
+
+    var userRole: UserRole = UserRole.NONE
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     var boardList: MutableList<Board> = mutableListOf()
-}
-fun postOf(postUserRequest: PostUserRequest): User{
-    return User().apply {
-        this.userId = postUserRequest.userId
-        this.name = postUserRequest.name
-        this.email = postUserRequest.email
-        this.password = postUserRequest.password
-        this.phoneNumber = postUserRequest.phoneNumber
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    var commentList: MutableList<Comment> = mutableListOf()
+
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority>? {
+        return null
+    }
+
+    override fun getPassword(): String? {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUsername(): String {
+        return name
+    }
+
+    override fun isAccountNonExpired(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun isAccountNonLocked(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun isCredentialsNonExpired(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun isEnabled(): Boolean {
+        return !this.isDeleted
     }
 }
