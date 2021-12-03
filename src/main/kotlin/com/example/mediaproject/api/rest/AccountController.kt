@@ -32,11 +32,11 @@ class AccountController(
         return  ResponseEntity.ok(response)
     }
 
-    @PostMapping("/check-duplicate-userid")
-    fun checkDuplicateId(
+    @PostMapping("/check-duplicate")
+    fun checkDuplicate(
         @RequestParam phoneNumber: String
     ): ResponseEntity<Boolean> {
-        val checkDuplicatePhoneNumber = accountService.checkDuplicate(phoneNumber)
-        return  ResponseEntity.ok(checkDuplicatePhoneNumber)
+        val response: Boolean = accountService.checkDuplicatePhoneNumber(phoneNumber)
+        return  ResponseEntity.ok(response)
     }
 }

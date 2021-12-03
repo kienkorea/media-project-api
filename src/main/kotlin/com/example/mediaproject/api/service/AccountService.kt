@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse
 
 @Service
 interface AccountService {
-    fun checkDuplicate(checkDuplicatePhoneNumber: String): Boolean
+    fun checkDuplicatePhoneNumber(checkDuplicatePhoneNumber: String): Boolean
     fun signUp(signUpRequest: SignUpRequest, httpResponse: HttpServletResponse): AccountResponse
     fun signIn(signInRequest: SignInRequest, httpResponse: HttpServletResponse): AccountResponse
 

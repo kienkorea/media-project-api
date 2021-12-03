@@ -19,7 +19,7 @@ class AccountServiceImpl(
     private val tokenService: TokenService
 
 ) : AccountService {
-    override fun checkDuplicate(checkDuplicatePhoneNumber: String): Boolean {
+    override fun checkDuplicatePhoneNumber(checkDuplicatePhoneNumber: String): Boolean {
         val phoneNumber: String = normalizePhoneNumber(checkDuplicatePhoneNumber)
         val foundUserList: MutableList<User> = userRepository.findAllByPhoneNumber(phoneNumber)
         return foundUserList.any { !it.isDeleted }    }
