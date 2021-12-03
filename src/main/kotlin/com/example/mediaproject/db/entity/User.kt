@@ -1,6 +1,5 @@
 package com.example.mediaproject.db.entity
 
-import com.example.mediaproject.api.request.PostUserRequest
 import com.example.mediaproject.db.enumerable.UserRole
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails

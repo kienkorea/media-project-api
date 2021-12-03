@@ -1,11 +1,9 @@
 package com.example.mediaproject.api.rest
 
-import com.example.mediaproject.api.request.PostUserRequest
 import com.example.mediaproject.api.request.SignInRequest
 import com.example.mediaproject.api.request.SignUpRequest
 import com.example.mediaproject.api.response.AccountResponse
 import com.example.mediaproject.api.service.AccountService
-import com.example.mediaproject.api.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletResponse

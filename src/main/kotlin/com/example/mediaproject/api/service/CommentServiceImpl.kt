@@ -12,6 +12,7 @@ import com.example.mediaproject.db.repository.BoardRepository
 import com.example.mediaproject.db.repository.CommentRepository
 import com.example.mediaproject.db.repository.UserRepository
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 import javax.transaction.Transactional
 
 @Service
@@ -31,5 +32,15 @@ class CommentServiceImpl(
 
         val comment: Comment = of(foundUser, foundBoard, commentRequest)
         return commentResponseOf(commentRepository.save(comment))
+    }
+
+    @Transactional
+    override fun patchComment(commentId: Long, userId: Long, commentRequest: CommentRequest): CommentResponse {
+        val foundComment: Comment = commentRepository.findById(commentId).orElseThrow { throw BadRequestException("댓글 정보를 찾을 수 없습니다. -> $commentId") }
+        foundComment.apply {
+            this.updatedAt = LocalDateTime.now()
+            this.content = commentRequest.content
+        }
+        return commentResponseOf(commentRepository.save(foundComment))
     }
 }
