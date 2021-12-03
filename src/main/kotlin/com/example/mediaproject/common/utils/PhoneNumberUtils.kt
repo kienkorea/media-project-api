@@ -10,7 +10,7 @@ class PhoneNumberUtils {
 
 fun normalizePhoneNumber(number: String): String {
     val logger: Logger = LoggerFactory.getLogger(PhoneNumberUtils::class.java)
-    if (number.endsWith("@kongservice.com"))
+    if (number.endsWith("@updown.com"))
         return number
     try {
         val phoneNumberUtil = PhoneNumberUtil.getInstance()

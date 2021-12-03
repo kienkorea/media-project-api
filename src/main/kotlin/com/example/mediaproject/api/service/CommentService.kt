@@ -7,5 +7,7 @@ import org.springframework.stereotype.Service
 @Service
 interface CommentService {
     fun postComment(boardId: Long, userId: Long, commentRequest: CommentRequest): CommentResponse
+    fun patchComment(commentId: Long, userId: Long, commentRequest: CommentRequest): CommentResponse
+//    fun deleteComment(boardId: Long, userId: Long, commentRequest: CommentRequest): Boolean
 
 }

@@ -1,11 +1,7 @@
 package com.example.mediaproject.api.rest
 
-import com.example.mediaproject.api.request.CommentRequest
-import com.example.mediaproject.api.request.PostUserRequest
-import com.example.mediaproject.api.response.CommentResponse
 import com.example.mediaproject.api.response.UserAndBoardResponse
 import com.example.mediaproject.api.response.UserResponse
-import com.example.mediaproject.api.service.CommentService
 import com.example.mediaproject.api.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
