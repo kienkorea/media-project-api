@@ -48,7 +48,7 @@ class AccountServiceImpl(
         val user: User = foundUserList[0]
         val encoder = BCryptPasswordEncoder()
         val checkMatchPassword: Boolean = encoder.matches(signInRequest.loginPassWord, user.loginPassWord)
-        if(!checkMatchPassword) throw BadRequestException("비밀 번호를 일치하지 않습니다. 비밀번호를 다시 확인하세요. ")
+        if(!checkMatchPassword) throw BadRequestException("핸드폰 번호 또는 비밀번호가 일치하지 않습니다. 다시 한번 확인하시고 로그인해 주세요.")
         if (user.isDeleted) throw NotFoundException("삭제 된 유저입니다. -> ${signInRequest.phoneNumber}")
 
         val userResponse: UserResponse = userResponseOf(user)

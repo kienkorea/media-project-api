@@ -2,6 +2,7 @@ package com.example.mediaproject.api.rest
 
 import com.example.mediaproject.api.request.PatchBoardRequest
 import com.example.mediaproject.api.request.PostBoardRequest
+import com.example.mediaproject.api.response.BoardDetailResponse
 import com.example.mediaproject.api.response.BoardResponse
 import com.example.mediaproject.api.service.BoardService
 import io.swagger.annotations.ApiImplicitParam
@@ -48,6 +49,14 @@ class BroadController(
         @PathVariable("boardId") boardId: Long
     ): ResponseEntity<BoardResponse>{
         val response: BoardResponse = boardService.findBoardById(boardId)
+        return ResponseEntity.ok(response)
+    }
+
+    @GetMapping("/{boardId}/detail")
+    fun getBoardDetail(
+        @PathVariable("boardId") boardId: Long
+    ): ResponseEntity<BoardDetailResponse>{
+        val response: BoardDetailResponse = boardService.getBoardDetail(boardId)
         return ResponseEntity.ok(response)
     }
 
