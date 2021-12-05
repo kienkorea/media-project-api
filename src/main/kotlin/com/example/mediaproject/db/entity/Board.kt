@@ -17,8 +17,8 @@ class Board {
     lateinit var title: String
     lateinit var content: String
 
-//    var likeCount: Long = 0
-//    var commentCount: Long = 0
+    var likeCount: Long = 0
+    var isLiked: Boolean = false
 
     @ManyToOne(fetch = FetchType.LAZY)
     lateinit var user: User

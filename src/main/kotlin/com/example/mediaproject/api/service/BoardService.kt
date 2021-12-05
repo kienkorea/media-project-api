@@ -18,4 +18,5 @@ interface BoardService{
     fun findAllBoard(pageable: Pageable, q: String?): Page<BoardResponse>
     fun findBoardList(): List<BoardResponse>
     fun getBoardDetail(boardId: Long): BoardDetailResponse
+    fun patchLikeBoard(boardId: Long, isLiked: Boolean): BoardResponse
 }

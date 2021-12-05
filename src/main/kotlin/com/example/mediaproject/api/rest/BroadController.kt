@@ -22,7 +22,7 @@ class BroadController(
     @PostMapping
     fun postBoard(
         @RequestBody postBoardRequest: PostBoardRequest
-    ): ResponseEntity<BoardResponse>{
+    ): ResponseEntity<BoardResponse> {
         val response: BoardResponse = boardService.postBoard(postBoardRequest)
         return ResponseEntity.ok(response)
     }
@@ -31,7 +31,7 @@ class BroadController(
     fun patchBoard(
         @PathVariable("boardId") boardId: Long,
         @RequestBody patchBoardRequest: PatchBoardRequest
-    ): ResponseEntity<BoardResponse>{
+    ): ResponseEntity<BoardResponse> {
         val response: BoardResponse = boardService.patchBoard(boardId, patchBoardRequest)
         return ResponseEntity.ok(response)
     }
@@ -39,7 +39,7 @@ class BroadController(
     @DeleteMapping("/{boardId}")
     fun deleteBoard(
         @PathVariable("boardId") boardId: Long
-    ): ResponseEntity<Boolean>{
+    ): ResponseEntity<Boolean> {
         val response: Boolean = boardService.deleteBoard(boardId)
         return ResponseEntity.ok(response)
     }
@@ -47,7 +47,7 @@ class BroadController(
     @GetMapping("/{boardId}")
     fun findBoardById(
         @PathVariable("boardId") boardId: Long
-    ): ResponseEntity<BoardResponse>{
+    ): ResponseEntity<BoardResponse> {
         val response: BoardResponse = boardService.findBoardById(boardId)
         return ResponseEntity.ok(response)
     }
@@ -55,17 +55,37 @@ class BroadController(
     @GetMapping("/{boardId}/detail")
     fun getBoardDetail(
         @PathVariable("boardId") boardId: Long
-    ): ResponseEntity<BoardDetailResponse>{
+    ): ResponseEntity<BoardDetailResponse> {
         val response: BoardDetailResponse = boardService.getBoardDetail(boardId)
         return ResponseEntity.ok(response)
     }
 
     @GetMapping("/list")
-    @ApiImplicitParams(value = [
-        ApiImplicitParam(name = "page", value = "페이지 넘버", defaultValue = "", paramType = "query", dataTypeClass = Int::class),
-        ApiImplicitParam(name = "size", value = "페이지 크기", defaultValue = "", paramType = "query", dataTypeClass = Int::class),
-        ApiImplicitParam(name = "sort", value = "정렬", defaultValue = "", paramType = "query", dataTypeClass = Int::class)
-    ])
+    @ApiImplicitParams(
+        value = [
+            ApiImplicitParam(
+                name = "page",
+                value = "페이지 넘버",
+                defaultValue = "",
+                paramType = "query",
+                dataTypeClass = Int::class
+            ),
+            ApiImplicitParam(
+                name = "size",
+                value = "페이지 크기",
+                defaultValue = "",
+                paramType = "query",
+                dataTypeClass = Int::class
+            ),
+            ApiImplicitParam(
+                name = "sort",
+                value = "정렬",
+                defaultValue = "",
+                paramType = "query",
+                dataTypeClass = Int::class
+            )
+        ]
+    )
     fun findAllBoard(
         @ApiIgnore pageable: Pageable,
         @RequestParam("q", required = false) q: String?
@@ -74,4 +94,12 @@ class BroadController(
         return ResponseEntity.ok(response)
     }
 
+    @PatchMapping("/{boardId}/like")
+    fun patchLikeBoard(
+        @PathVariable("boardId") boardId: Long,
+        @RequestParam(required = true) isLiked: Boolean
+    ): ResponseEntity<BoardResponse> {
+        val response: BoardResponse = boardService.patchLikeBoard(boardId, isLiked)
+        return ResponseEntity.ok(response)
+    }
 }
