@@ -2,7 +2,9 @@ package com.example.mediaproject.api.service
 
 import com.example.mediaproject.api.request.PatchBoardRequest
 import com.example.mediaproject.api.request.PostBoardRequest
+import com.example.mediaproject.api.response.BoardDetailResponse
 import com.example.mediaproject.api.response.BoardResponse
+import com.example.mediaproject.api.response.boardDetailResponseOf
 import com.example.mediaproject.api.response.boardResponseOf
 import com.example.mediaproject.common.exception.BadRequestException
 import com.example.mediaproject.db.repository.BoardRepositorySupport
@@ -66,6 +68,27 @@ class BoardServiceImpl(
     override fun findBoardList(): List<BoardResponse> {
         val boardList: List<Board> = boardRepository.findAll()
         return boardList.stream().map { boardResponseOf(it) }.toList()
+    }
+
+    override fun getBoardDetail(boardId: Long): BoardDetailResponse {
+        val foundBoard: Board = boardRepository.findById(boardId)
+            .orElseThrow { throw BadRequestException("보드 정보를 찾을 수 없습니다. -> $boardId") }
+        return boardDetailResponseOf(foundBoard)
+    }
+
+    @Transactional
+    override fun patchLikeBoard(boardId: Long, isLiked: Boolean): BoardResponse {
+        val foundBoard: Board = boardRepository.findById(boardId)
+            .orElseThrow { throw BadRequestException("보드 정보를 찾을 수 없습니다. -> $boardId") }
+        if(isLiked){
+            foundBoard.likeCount = foundBoard.likeCount - 1
+            foundBoard.isLiked = false
+        }
+        else{
+            foundBoard.likeCount = foundBoard.likeCount + 1
+            foundBoard.isLiked = true
+        }
+        return boardResponseOf(foundBoard)
     }
 
 }

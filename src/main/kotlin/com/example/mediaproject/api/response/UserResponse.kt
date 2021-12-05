@@ -9,7 +9,8 @@ class UserResponse(
     val name: String,
     val email: String?,
     val phoneNumber: String,
-    val userRole: UserRole
+    val userRole: UserRole,
+    val needChangePassword: Boolean
 )
 fun userResponseOf(user: User): UserResponse{
     return UserResponse(
@@ -17,6 +18,7 @@ fun userResponseOf(user: User): UserResponse{
         user.name,
         user.email,
         maskPhoneNumber(user.phoneNumber),
-        user.userRole
+        user.userRole,
+        user.needChangePassword
     )
 }

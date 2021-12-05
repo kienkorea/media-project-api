@@ -21,6 +21,7 @@ class User: UserDetails {
     var deletedAt : LocalDateTime? = null
 
     var userRole: UserRole = UserRole.NONE
+    var needChangePassword = false
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     var boardList: MutableList<Board> = mutableListOf()

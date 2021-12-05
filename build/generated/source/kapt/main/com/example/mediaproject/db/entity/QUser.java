@@ -38,6 +38,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath name = createString("name");
 
+    public final BooleanPath needChangePassword = createBoolean("needChangePassword");
+
     public final StringPath phoneNumber = createString("phoneNumber");
 
     public final DateTimePath<java.time.LocalDateTime> updatedAt = createDateTime("updatedAt", java.time.LocalDateTime.class);
