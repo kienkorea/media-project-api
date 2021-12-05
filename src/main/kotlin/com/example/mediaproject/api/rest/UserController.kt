@@ -1,7 +1,6 @@
 package com.example.mediaproject.api.rest
 
 import com.example.mediaproject.api.request.ChangePasswordRequest
-import com.example.mediaproject.api.response.AccountResponse
 import com.example.mediaproject.api.response.UserAndBoardResponse
 import com.example.mediaproject.api.response.UserResponse
 import com.example.mediaproject.api.service.UserService
@@ -15,6 +14,7 @@ class UserController(
     private val userService: UserService
 ) {
 
+    @ApiOperation("자기 정보 조회 getMe")
     @GetMapping("/me")
     fun getMe(
         @RequestAttribute userId: Long
@@ -23,6 +23,7 @@ class UserController(
         return ResponseEntity.ok(response)
     }
 
+    @ApiOperation("유저가 쓴 보드 리스트 조회 (My page)")
     @GetMapping("/my-board")
     fun getAllMyBoard(
         @RequestAttribute userId: Long
