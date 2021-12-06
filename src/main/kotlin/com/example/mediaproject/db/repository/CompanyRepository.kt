@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CompanyRepository: JpaRepository<Company, Long> {
-
+    fun existsByName(name: String): Boolean
 }

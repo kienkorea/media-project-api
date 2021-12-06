@@ -1,5 +1,6 @@
 package com.example.mediaproject.db.entity
 
+import com.example.mediaproject.api.request.CompanyRequest
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -11,10 +12,14 @@ class Company {
     var id: Long = -1
     val createdAt : LocalDateTime = LocalDateTime.now()
     var updatedAt : LocalDateTime? = null
-    lateinit var name: String
-    lateinit var email: String
-    var likeCount: Long = 0
-    var hateCount: Long = 0
 
-    val companyCode: String = ""
+    lateinit var name: String
+    var companyCode: String = ""
+}
+
+fun companyOf(companyRequest: CompanyRequest): Company{
+    return Company().apply {
+        this.name = companyRequest.name
+        this.companyCode = companyRequest.companyCode
+    }
 }
