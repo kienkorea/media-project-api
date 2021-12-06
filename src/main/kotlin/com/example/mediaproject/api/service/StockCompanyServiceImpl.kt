@@ -23,16 +23,17 @@ class StockCompanyServiceImpl(
 
     override fun getCompanyStockData(pageable: Pageable): List<CompanyResponse> {
         val companyList: List<Company> = companyRepository.findAll()
-        return requestByRestTemplate(companyList).map {
-            companyResponseOf(it)
-        }
+
+        val naverStockItemList: List<NaverStockItem> = requestToNaverStock(companyList)
+
+        return naverStockItemList.map { companyResponseOf(it) }
     }
 
     override fun feedCompanyStockData(nextId: Long): List<CompanyResponse> {
         TODO("Not yet implemented")
     }
 
-    private fun requestByRestTemplate(companyList: List<Company>): List<NaverStockItem> {
+    private fun requestToNaverStock(companyList: List<Company>): List<NaverStockItem> {
         val stringBuilder = StringBuilder("naver_stock_codeList=")
         companyList.forEach { stringBuilder.append(it.companyCode+"%7C") }
 
