@@ -34,6 +34,7 @@ dependencies {
     implementation ("org.apache.tomcat.embed:tomcat-embed-jasper")
     implementation ("javax.servlet:jstl")
 
+    // Deprecated
     // Parse from String to Json using Klaxon
     implementation ("com.beust:klaxon:5.5")
 
@@ -69,6 +70,10 @@ dependencies {
     // lombok
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+
+    //retrofit2
+    implementation("com.squareup.retrofit2:retrofit:2.7.1")
+    implementation("com.squareup.retrofit2:converter-jackson:2.7.1")
 }
 
 tasks.withType<KotlinCompile> {

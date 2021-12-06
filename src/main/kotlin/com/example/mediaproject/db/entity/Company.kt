@@ -16,4 +16,5 @@ class Company {
     var likeCount: Long = 0
     var hateCount: Long = 0
 
+    val companyCode: String = ""
 }
