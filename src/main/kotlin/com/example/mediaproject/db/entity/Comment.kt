@@ -10,22 +10,16 @@ class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = -1
     val createdAt : LocalDateTime = LocalDateTime.now()
-    var updatedAt : LocalDateTime? = null
-
     lateinit var content: String
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    lateinit var board: Board
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    lateinit var user: User
+    var boardId: Long = -1
+    var userId: Long = -1
 
 }
 
-fun of(user: User, board: Board, commentRequest: CommentRequest): Comment{
+fun of(userId: Long, boardId: Long, commentRequest: CommentRequest): Comment{
     return Comment().apply {
-        this.user = user
-        this.board = board
+        this.userId = userId
+        this.boardId = boardId
         this.content = commentRequest.content
     }
 }

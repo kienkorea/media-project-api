@@ -74,6 +74,10 @@ dependencies {
     //retrofit2
     implementation("com.squareup.retrofit2:retrofit:2.7.1")
     implementation("com.squareup.retrofit2:converter-jackson:2.7.1")
+
+    // Jsoup Html 파싱
+    implementation("org.jsoup:jsoup:1.14.3")
+
 }
 
 tasks.withType<KotlinCompile> {
