@@ -6,7 +6,8 @@ data class CompanyResponse (
     val stockPrice: String,
     val change_val: String,
     val change_rate: String,
-    val risefall: String
+    val risefall: String,
+    val naverNewsResponseList: List<NaverNewsResponse> = mutableListOf()
 )
 
 fun companyResponseOf(naverStockItem: NaverStockItem): CompanyResponse{
@@ -17,5 +18,17 @@ fun companyResponseOf(naverStockItem: NaverStockItem): CompanyResponse{
         change_val = naverStockItem.change_val,
         change_rate = naverStockItem.change_rate,
         risefall = naverStockItem.risefall
+    )
+}
+
+fun companyResponseOf(naverStockItem: NaverStockItem, naverNewsResponseList: List<NaverNewsResponse>): CompanyResponse{
+    return CompanyResponse(
+        name = naverStockItem.itemname,
+        companyCode = naverStockItem.itemcode,
+        stockPrice = naverStockItem.now_val,
+        change_val = naverStockItem.change_val,
+        change_rate = naverStockItem.change_rate,
+        risefall = naverStockItem.risefall,
+        naverNewsResponseList = naverNewsResponseList
     )
 }

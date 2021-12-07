@@ -20,6 +20,13 @@ class StockCompanyController(
         return ResponseEntity.ok(stockCompanyService.getCompanyStockData(pageable))
     }
 
+    @GetMapping("/{companyCode}")
+    fun getStockCompanyDetail(
+        @PathVariable companyCode: String
+    ): ResponseEntity<List<CompanyResponse>> {
+        return ResponseEntity.ok(stockCompanyService.getCompanyStockDataDetail(companyCode))
+    }
+
     @GetMapping("/feed")
     fun feedCompanyStockListByApiKey(nextId: Long): ResponseEntity<List<CompanyResponse>> {
         return ResponseEntity.ok(stockCompanyService.feedCompanyStockData(nextId))

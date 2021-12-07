@@ -12,4 +12,5 @@ interface StockCompanyService {
     fun getCompanyStockData(pageable: Pageable): List<CompanyResponse>
     fun feedCompanyStockData(nextId: Long): List<CompanyResponse>
     fun postCompany(companyRequest: CompanyRequest): Company
+    fun getCompanyStockDataDetail(companyCode: String): List<CompanyResponse>
 }
