@@ -10,8 +10,7 @@ class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = -1
     val createdAt : LocalDateTime = LocalDateTime.now()
-    var updatedAt : LocalDateTime? = null
-
+    var updatedAt: LocalDateTime? = null
     lateinit var content: String
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -19,7 +18,6 @@ class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     lateinit var user: User
-
 }
 
 fun of(user: User, board: Board, commentRequest: CommentRequest): Comment{

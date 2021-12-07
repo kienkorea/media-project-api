@@ -3,6 +3,7 @@ package com.example.mediaproject.api.rest
 import com.example.mediaproject.api.request.CommentRequest
 import com.example.mediaproject.api.response.CommentResponse
 import com.example.mediaproject.api.service.CommentService
+import io.swagger.annotations.ApiOperation
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -12,6 +13,7 @@ class CommentController(
     private val commentService: CommentService
 ) {
 
+    @ApiOperation("댓글을 남기기")
     @PostMapping
     fun postComment(
         @RequestAttribute userId: Long,
@@ -22,6 +24,7 @@ class CommentController(
         return ResponseEntity.ok(response)
     }
 
+    @ApiOperation("댓글을 편집하기")
     @PatchMapping("/{commentId}")
     fun patchComment(
         @RequestAttribute userId: Long,

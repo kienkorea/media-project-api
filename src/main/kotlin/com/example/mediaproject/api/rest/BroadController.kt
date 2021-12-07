@@ -7,6 +7,7 @@ import com.example.mediaproject.api.response.BoardResponse
 import com.example.mediaproject.api.service.BoardService
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
+import io.swagger.annotations.ApiOperation
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
@@ -18,7 +19,7 @@ import springfox.documentation.annotations.ApiIgnore
 class BroadController(
     private val boardService: BoardService
 ) {
-
+    @ApiOperation("보드를 올리기")
     @PostMapping
     fun postBoard(
         @RequestBody postBoardRequest: PostBoardRequest
@@ -26,7 +27,7 @@ class BroadController(
         val response: BoardResponse = boardService.postBoard(postBoardRequest)
         return ResponseEntity.ok(response)
     }
-
+    @ApiOperation("보드를 편집하기")
     @PatchMapping("/{boardId}")
     fun patchBoard(
         @PathVariable("boardId") boardId: Long,
@@ -35,7 +36,7 @@ class BroadController(
         val response: BoardResponse = boardService.patchBoard(boardId, patchBoardRequest)
         return ResponseEntity.ok(response)
     }
-
+    @ApiOperation("보드를 삭제하기")
     @DeleteMapping("/{boardId}")
     fun deleteBoard(
         @PathVariable("boardId") boardId: Long
@@ -43,7 +44,7 @@ class BroadController(
         val response: Boolean = boardService.deleteBoard(boardId)
         return ResponseEntity.ok(response)
     }
-
+    @ApiOperation("보드를 조회하기")
     @GetMapping("/{boardId}")
     fun findBoardById(
         @PathVariable("boardId") boardId: Long
@@ -51,7 +52,7 @@ class BroadController(
         val response: BoardResponse = boardService.findBoardById(boardId)
         return ResponseEntity.ok(response)
     }
-
+    @ApiOperation("보드를 상세보기 (댓글 리스트 조회 포함)")
     @GetMapping("/{boardId}/detail")
     fun getBoardDetail(
         @PathVariable("boardId") boardId: Long
@@ -59,7 +60,7 @@ class BroadController(
         val response: BoardDetailResponse = boardService.getBoardDetail(boardId)
         return ResponseEntity.ok(response)
     }
-
+    @ApiOperation("보드 리스트 조회 (보드 응답에 댓글 없음)")
     @GetMapping("/list")
     @ApiImplicitParams(
         value = [
@@ -94,6 +95,7 @@ class BroadController(
         return ResponseEntity.ok(response)
     }
 
+    @ApiOperation("보드를 좋아요 누르기. 한번 누르면 좋아요 되고, 좋아요 된 상태를 다시 누르면 좋아요 해지가 됨 ")
     @PatchMapping("/{boardId}/like")
     fun patchLikeBoard(
         @PathVariable("boardId") boardId: Long,
