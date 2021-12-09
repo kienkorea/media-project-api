@@ -76,19 +76,19 @@ class BoardServiceImpl(
         return boardDetailResponseOf(foundBoard)
     }
 
-    @Transactional
-    override fun patchLikeBoard(boardId: Long, isLiked: Boolean): BoardResponse {
-        val foundBoard: Board = boardRepository.findById(boardId)
-            .orElseThrow { throw BadRequestException("보드 정보를 찾을 수 없습니다. -> $boardId") }
-        if(isLiked){
-            foundBoard.likeCount = foundBoard.likeCount - 1
-            foundBoard.isLiked = false
-        }
-        else{
-            foundBoard.likeCount = foundBoard.likeCount + 1
-            foundBoard.isLiked = true
-        }
-        return boardResponseOf(foundBoard)
-    }
+//    @Transactional
+//    override fun patchLikeBoard(boardId: Long, isLiked: Boolean): BoardResponse {
+//        val foundBoard: Board = boardRepository.findById(boardId)
+//            .orElseThrow { throw BadRequestException("보드 정보를 찾을 수 없습니다. -> $boardId") }
+//        if(isLiked){
+//            foundBoard.likeCount = foundBoard.likeCount - 1
+//            foundBoard.isLiked = false
+//        }
+//        else{
+//            foundBoard.likeCount = foundBoard.likeCount + 1
+//            foundBoard.isLiked = true
+//        }
+//        return boardResponseOf(foundBoard)
+//    }
 
 }

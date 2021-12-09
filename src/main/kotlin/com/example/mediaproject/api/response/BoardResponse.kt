@@ -10,11 +10,9 @@ data class BoardResponse(
     val authorName: String,
 
     val createAt: LocalDateTime? = null,
-    val title: String,
     val content: String,
     val totalLike: Long,
     val totalComment: Long,
-    val isLiked: Boolean
 
 )
 fun boardResponseOf(board: Board): BoardResponse{
@@ -23,10 +21,8 @@ fun boardResponseOf(board: Board): BoardResponse{
         board.user.id,
         board.user.name,
         board.createdAt,
-        board.title,
         board.content,
-        board.likeCount,
+        board.likeList.size.toLong(),
         board.commentList.size.toLong(),
-        board.isLiked
     )
 }
