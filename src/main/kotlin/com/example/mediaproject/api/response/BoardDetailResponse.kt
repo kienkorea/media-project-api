@@ -9,9 +9,10 @@ data class BoardDetailResponse(
     val createBy: Long,
     val authorName: String,
 
-    val createAt: LocalDateTime,
-    val title: String,
+    val createAt: LocalDateTime? = null,
     val content: String,
+    val totalLike: Long,
+    val totalComment: Long,
 
     val commentListResponse: List<CommentResponse> = mutableListOf()
 )
@@ -22,8 +23,9 @@ fun boardDetailResponseOf(board: Board): BoardDetailResponse {
         board.user.id,
         board.user.name,
         board.createdAt,
-        board.title,
         board.content,
+        board.likeList.size.toLong(),
+        board.commentList.size.toLong(),
         board.commentList.stream().map { commentResponseOf(it) }.toList()
     )
 }

@@ -14,11 +14,8 @@ class Board {
     val createdAt : LocalDateTime = LocalDateTime.now()
     var updatedAt : LocalDateTime? = null
 
-    lateinit var title: String
     lateinit var content: String
 
-    var likeCount: Long = 0
-    var isLiked: Boolean = false
 
     @ManyToOne(fetch = FetchType.LAZY)
     lateinit var user: User
@@ -26,19 +23,19 @@ class Board {
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
     var commentList: MutableList<Comment> = mutableListOf()
 
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+    var likeList: MutableList<BoardLike> = mutableListOf()
 
 }
 fun postOf(postBoardRequest: PostBoardRequest, user: User): Board{
     return Board().apply {
         this.user= user
-        this.title = postBoardRequest.title
         this.content = postBoardRequest.content
     }
 }
 
 fun patchOf(board: Board, user: User, patchBoardRequest: PatchBoardRequest): Board{
     board.updatedAt = LocalDateTime.now()
-    if(patchBoardRequest.title != null) board.title = patchBoardRequest.title
     if(patchBoardRequest.content != null) board.content = patchBoardRequest.content
     board.user = user
     return board

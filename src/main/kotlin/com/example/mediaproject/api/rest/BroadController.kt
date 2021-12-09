@@ -95,13 +95,13 @@ class BroadController(
         return ResponseEntity.ok(response)
     }
 
-    @ApiOperation("보드를 좋아요 누르기. 한번 누르면 좋아요 되고, 좋아요 된 상태를 다시 누르면 좋아요 해지가 됨 ")
-    @PatchMapping("/{boardId}/like")
-    fun patchLikeBoard(
-        @PathVariable("boardId") boardId: Long,
-        @RequestParam(required = true) isLiked: Boolean
-    ): ResponseEntity<BoardResponse> {
-        val response: BoardResponse = boardService.patchLikeBoard(boardId, isLiked)
-        return ResponseEntity.ok(response)
-    }
+//    @ApiOperation("보드를 좋아요 누르기. 한번 누르면 좋아요 되고, 좋아요 된 상태를 다시 누르면 좋아요 해지가 됨 ")
+//    @PatchMapping("/{boardId}/like")
+//    fun patchLikeBoard(
+//        @PathVariable("boardId") boardId: Long,
+//        @RequestParam(required = true) isLiked: Boolean
+//    ): ResponseEntity<BoardResponse> {
+//        val response: BoardResponse = boardService.patchLikeBoard(boardId, isLiked)
+//        return ResponseEntity.ok(response)
+//    }
 }
