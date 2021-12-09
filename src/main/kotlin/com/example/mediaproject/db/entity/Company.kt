@@ -4,14 +4,12 @@ import com.example.mediaproject.api.request.CompanyRequest
 import java.time.LocalDateTime
 import javax.persistence.*
 
-
 @Entity
 class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = -1
     val createdAt : LocalDateTime = LocalDateTime.now()
-    var updatedAt : LocalDateTime? = null
 
     lateinit var name: String
     var companyCode: String = ""
