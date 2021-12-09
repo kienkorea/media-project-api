@@ -27,4 +27,11 @@ class BoardLikeServiceImpl(
         val like: BoardLike = likeOf(foundUser, foundBoard)
         return boardLikeResponseOf(likeRepository.save(like))
     }
+
+    override fun deleteLike(boardLikeId: Long): Boolean {
+        val foundLike: BoardLike = likeRepository.findById(boardLikeId)
+            .orElseThrow { throw BadRequestException("좋아요를 하지 않았습니다. -> $boardLikeId") }
+        likeRepository.delete(foundLike)
+        return !likeRepository.existsById(foundLike.id)
+    }
 }

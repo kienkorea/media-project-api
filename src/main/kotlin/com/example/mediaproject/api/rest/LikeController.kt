@@ -21,4 +21,13 @@ class LikeController(
         val response = boardLikeService.postLike(boardId, userId)
         return ResponseEntity.ok(response)
     }
+
+    @ApiOperation("보드를 삭제하기")
+    @DeleteMapping("/{boardLikeId}")
+    fun deleteBoard(
+        @PathVariable("boardLikeId") boardLikeId: Long
+    ): ResponseEntity<Boolean> {
+        val response: Boolean = boardLikeService.deleteLike(boardLikeId)
+        return ResponseEntity.ok(response)
+    }
 }
