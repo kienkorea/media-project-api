@@ -24,11 +24,20 @@ class UserController(
     }
 
     @ApiOperation("유저가 쓴 보드 리스트 조회 (My page)")
-    @GetMapping("/my-board")
+    @GetMapping("/my-boards")
     fun getAllMyBoard(
         @RequestAttribute userId: Long
     ): ResponseEntity<UserAndBoardResponse> {
         val response = userService.getAllMyBoard(userId)
+        return ResponseEntity.ok(response)
+    }
+
+    @ApiOperation("유저가 좋아요 누른 보드 리스트 조회 (My page)")
+    @GetMapping("/my-likes")
+    fun getMyLikeBoardList(
+        @RequestAttribute userId: Long
+    ): ResponseEntity<UserAndBoardResponse> {
+        val response = userService.getMyLikeBoardList(userId)
         return ResponseEntity.ok(response)
     }
 

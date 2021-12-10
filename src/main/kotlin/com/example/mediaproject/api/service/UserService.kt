@@ -12,5 +12,6 @@ interface UserService {
     fun getAllMyBoard(userId: Long): UserAndBoardResponse
     fun resetPassword(userId: Long, needChangePassword: Boolean): UserResponse
     fun changePassword(userId: Long, changePasswordRequest: ChangePasswordRequest): UserResponse
+    fun getMyLikeBoardList(userId: Long): UserAndBoardResponse
 
 }
