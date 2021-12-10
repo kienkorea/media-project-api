@@ -16,7 +16,6 @@ class Board {
 
     lateinit var content: String
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     lateinit var user: User
 
