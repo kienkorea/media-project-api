@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service
 
 @Service
 interface StockCompanyService {
-    fun getCompanyStockData(pageable: Pageable): List<CompanyResponse>
+    fun getCompanyStockData(q: String?): List<CompanyResponse>
     fun feedCompanyStockData(nextId: Long): List<CompanyResponse>
     fun postCompany(companyRequest: CompanyRequest): Company
     fun getCompanyStockDataDetail(companyCode: String): List<CompanyResponse>
+    fun postCompanyList(companyRequestList: List<CompanyRequest>): List<Company>
 }

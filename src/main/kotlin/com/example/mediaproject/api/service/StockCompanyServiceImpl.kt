@@ -6,25 +6,28 @@ import com.example.mediaproject.common.exception.BadRequestException
 import com.example.mediaproject.db.entity.Company
 import com.example.mediaproject.db.entity.companyOf
 import com.example.mediaproject.db.repository.CompanyRepository
+import com.example.mediaproject.db.repository.CompanyRepositorySupport
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import retrofit2.Response
+import javax.transaction.Transactional
+import kotlin.streams.toList
 
 
 @Service
 class StockCompanyServiceImpl(
     private val naverStockPriceService: NaverStockPriceService,
-    private val companyRepository: CompanyRepository
+    private val companyRepository: CompanyRepository,
+    private val companyRepositorySupport: CompanyRepositorySupport
 ) : StockCompanyService {
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
     private val baseUrl: String = "https://search.naver.com/search.naver?where=news&sm=tab_jum&query="
 
-    override fun getCompanyStockData(pageable: Pageable): List<CompanyResponse> {
-        val companyList: List<Company> = companyRepository.findAll()
+    override fun getCompanyStockData(q: String?): List<CompanyResponse> {
+        val companyList: List<Company> = companyRepositorySupport.getAllCompanyWithQ(q)
 
         val naverStockItemList: List<NaverStockItem> = requestToNaverStock(companyList)
 
@@ -58,6 +61,11 @@ class StockCompanyServiceImpl(
             return naverStockItemList.map { companyResponseOf(it, naverNewsResponseList) }
         }
         return mutableListOf()
+    }
+
+    @Transactional
+    override fun postCompanyList(companyRequestList: List<CompanyRequest>): List<Company> {
+        return companyRequestList.stream().map { this.postCompany(it) }.toList()
     }
 
     private fun requestNewsToNaver(keyword: String): List<NaverNewsResponse> {
