@@ -61,4 +61,14 @@ class UserController(
         return  ResponseEntity.ok(response)
     }
 
+
+    @ApiOperation("유저 비밀번호 변경")
+    @GetMapping("/list")
+    fun getAllUser(
+        @RequestParam("q", required = false) q: String?
+    ): ResponseEntity<List<UserResponse>> {
+        val response = userService.getAllUser(q)
+        return  ResponseEntity.ok(response)
+    }
+
 }

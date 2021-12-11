@@ -71,4 +71,9 @@ class UserServiceImpl(
         return ofUserAndBoardResponse(foundUser, boardResponseList)
     }
 
+    override fun getAllUser(q: String?): List<UserResponse> {
+        val userList: List<User> = userRepositorySupport.getAllUser(q)
+        return userList.stream().map { userResponseOf(it) }.toList()
+    }
+
 }

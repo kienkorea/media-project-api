@@ -1,9 +1,7 @@
 package com.example.mediaproject.db.repository
 
-import com.example.mediaproject.db.entity.Board
-import com.example.mediaproject.db.entity.QBoard
-import com.example.mediaproject.db.entity.QBoardLike
-import com.example.mediaproject.db.entity.QUser
+import com.example.mediaproject.db.entity.*
+import com.querydsl.core.BooleanBuilder
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 
@@ -23,5 +21,15 @@ class UserRepositorySupport(
             .where(qUser.id.eq(userId))
             .fetch()
     }
+
+    fun getAllUser(q: String?): List<User> {
+        val where = BooleanBuilder()
+        if(q != null) where.and(qUser.name.contains(q))
+        return jpaQueryFactory.select(qUser)
+            .from(qUser)
+            .where(where)
+            .fetch()
+    }
+
 
 }
