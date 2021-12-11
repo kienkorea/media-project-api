@@ -24,7 +24,7 @@ class BoardRepositorySupport(
         val query: JPAQuery<Board> = jpaQueryFactory.select(qBoard)
             .from(qBoard)
             .where(where)
-        if(sortBy == "likeCount") query.orderBy(qBoard.commentList.size().desc())
+        if(sortBy == "likeCount") query.orderBy(qBoard.likeList.size().desc())
         else if(sortBy == "createdAt") query.orderBy(qBoard.createdAt.desc())
         return query.fetch()
     }
