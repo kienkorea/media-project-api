@@ -33,11 +33,29 @@ class AccountController(
         return  ResponseEntity.ok(response)
     }
     @ApiOperation("핸드폰 번호 중복 체크")
-    @PostMapping("/check-duplicate")
-    fun checkDuplicate(
+    @PostMapping("/check-duplicate-phone-number")
+    fun checkDuplicatePhoneNumber(
         @RequestParam phoneNumber: String
     ): ResponseEntity<Boolean> {
         val response: Boolean = accountService.checkDuplicatePhoneNumber(phoneNumber)
+        return  ResponseEntity.ok(response)
+    }
+
+    @ApiOperation("핸드폰 번호 중복 체크")
+    @PostMapping("/check-duplicate-name")
+    fun checkDuplicateName(
+        @RequestParam username: String
+    ): ResponseEntity<Boolean> {
+        val response: Boolean = accountService.checkDuplicateName(username)
+        return  ResponseEntity.ok(response)
+    }
+
+    @ApiOperation("핸드폰 번호 중복 체크")
+    @PostMapping("/check-duplicate-email")
+    fun checkDuplicateEmail(
+        @RequestParam email: String
+    ): ResponseEntity<Boolean> {
+        val response: Boolean = accountService.checkDuplicateEmail(email)
         return  ResponseEntity.ok(response)
     }
 }

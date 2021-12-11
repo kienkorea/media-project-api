@@ -9,4 +9,6 @@ import java.util.*
 interface UserRepository: JpaRepository<User, Long> {
     fun findByPhoneNumber(phoneNumber: String): User?
     fun findAllByPhoneNumber(phoneNumber: String): MutableList<User>
+    fun findAllByName(username: String): MutableList<User>
+    fun findAllByEmail(email: String): MutableList<User>
 }

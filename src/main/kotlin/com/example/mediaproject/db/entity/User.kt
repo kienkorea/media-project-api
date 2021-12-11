@@ -14,8 +14,12 @@ class User: UserDetails {
     val createdAt : LocalDateTime = LocalDateTime.now()
     var updatedAt : LocalDateTime? = null
     lateinit var loginPassWord: String
+
+    @Column(unique = true)
     lateinit var name: String
+    @Column(unique = true)
     lateinit var email: String
+    @Column(unique = true)
     lateinit var phoneNumber: String
     var isDeleted: Boolean = false
     var deletedAt : LocalDateTime? = null

@@ -44,3 +44,4 @@ fun maskPhoneNumber(phoneNumber: String): String {
     }
     return builder.toString()
 }
+
