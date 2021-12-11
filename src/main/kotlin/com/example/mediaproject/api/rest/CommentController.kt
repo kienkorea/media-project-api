@@ -16,7 +16,7 @@ class CommentController(
     @ApiOperation("댓글을 남기기")
     @PostMapping
     fun postComment(
-        @RequestAttribute userId: Long,
+        @RequestParam userId: Long,
         @RequestParam boardId: Long,
         @RequestBody commentRequest: CommentRequest
     ): ResponseEntity<CommentResponse>{
@@ -27,7 +27,7 @@ class CommentController(
     @ApiOperation("댓글을 편집하기")
     @PatchMapping("/{commentId}")
     fun patchComment(
-        @RequestAttribute userId: Long,
+        @RequestParam userId: Long,
         @PathVariable commentId: Long,
         @RequestBody commentRequest: CommentRequest
     ): ResponseEntity<CommentResponse>{
@@ -35,12 +35,11 @@ class CommentController(
         return ResponseEntity.ok(response)
     }
 
-//    @DeleteMapping
-//    fun deleteComment(
-//        @RequestAttribute userId: Long,
-//        @RequestParam commentId: Long,
-//    ): ResponseEntity<Boolean>{
-//        val response: Boolean = commentService.deleteComment(userId, commentId)
-//        return ResponseEntity.ok(response)
-//    }
+    @DeleteMapping("/{commentId}")
+    fun deleteComment(
+        @PathVariable commentId: Long,
+    ): ResponseEntity<Boolean>{
+        val response: Boolean = commentService.deleteComment(commentId)
+        return ResponseEntity.ok(response)
+    }
 }

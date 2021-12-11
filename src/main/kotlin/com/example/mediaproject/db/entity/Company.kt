@@ -12,6 +12,7 @@ class Company {
     val createdAt : LocalDateTime = LocalDateTime.now()
 
     lateinit var name: String
+    @Column(unique = true)
     var companyCode: String = ""
 }
 

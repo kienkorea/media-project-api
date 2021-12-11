@@ -15,7 +15,8 @@ class LikeController(
     @ApiOperation("댓글을 남기기")
     @PostMapping
     fun postLike(
-        @RequestAttribute userId: Long,
+//        @RequestAttribute userId: Long,
+        @RequestParam userId: Long,
         @RequestParam boardId: Long,
     ): ResponseEntity<BoardLikeResponse> {
         val response = boardLikeService.postLike(boardId, userId)

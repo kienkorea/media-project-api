@@ -4,7 +4,6 @@ import com.example.mediaproject.api.request.CompanyRequest
 import com.example.mediaproject.api.response.CompanyResponse
 import com.example.mediaproject.api.service.StockCompanyService
 import com.example.mediaproject.db.entity.Company
-import org.springframework.data.domain.Pageable
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
@@ -16,8 +15,10 @@ class StockCompanyController(
 ){
 
     @GetMapping("/list")
-    fun getCompanyStockListByApiKey(pageable: Pageable): ResponseEntity<List<CompanyResponse>> {
-        return ResponseEntity.ok(stockCompanyService.getCompanyStockData(pageable))
+    fun getCompanyStockListByApiKey(
+        @RequestParam("q", required = false) q: String?
+    ): ResponseEntity<List<CompanyResponse>> {
+        return ResponseEntity.ok(stockCompanyService.getCompanyStockData(q))
     }
 
     @GetMapping("/{companyCode}")
@@ -37,5 +38,12 @@ class StockCompanyController(
         @RequestBody companyRequest: CompanyRequest
     ): ResponseEntity<Company> {
         return ResponseEntity.ok(stockCompanyService.postCompany(companyRequest))
+    }
+
+    @PostMapping("list")
+    fun postCompanyList(
+        @RequestBody companyRequestList: List<CompanyRequest>
+    ): ResponseEntity<List<Company>> {
+        return ResponseEntity.ok(stockCompanyService.postCompanyList(companyRequestList))
     }
 }

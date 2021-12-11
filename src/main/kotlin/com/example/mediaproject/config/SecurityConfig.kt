@@ -40,7 +40,7 @@ class SecurityConfig(
                 request.antMatchers("/media-project/up-down/accounts/**").permitAll()
                 request.antMatchers("/media-project/up-down/stocks/**").permitAll()
                 request.antMatchers("/media-project/up-down/board/list").permitAll()
-                request.anyRequest().authenticated()
+//                request.anyRequest().authenticated()
             }
             .cors().and()
     }

@@ -16,14 +16,15 @@ class Board {
 
     lateinit var content: String
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     lateinit var user: User
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+    var isLiked: Boolean = false
+
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var commentList: MutableList<Comment> = mutableListOf()
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var likeList: MutableList<BoardLike> = mutableListOf()
 
 }
