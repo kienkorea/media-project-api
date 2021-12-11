@@ -53,8 +53,8 @@ class BroadController(
     fun findAllBoard(
         @RequestParam("q", required = false) q: String?,
         @RequestParam("sortBy", required = true) sortBy: String
-    ): ResponseEntity<List<BoardResponse>> {
-        val response: List<BoardResponse> = boardService.findAllBoard(q, sortBy)
+    ): ResponseEntity<List<BoardDetailResponse>> {
+        val response: List<BoardDetailResponse> = boardService.findAllBoard(q, sortBy)
         return ResponseEntity.ok(response)
     }
 
