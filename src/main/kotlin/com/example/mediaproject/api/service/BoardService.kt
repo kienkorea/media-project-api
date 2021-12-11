@@ -12,6 +12,6 @@ interface BoardService{
     fun postBoard(userId: Long, postBoardRequest: PostBoardRequest): BoardResponse
     fun patchBoard(boardId: Long, patchBoardRequest: PatchBoardRequest): BoardResponse
     fun deleteBoard(boardId: Long): Boolean
-    fun getBoardDetail(boardId: Long): BoardDetailResponse
-    fun findAllBoard(q: String?, sortBy: String): List<BoardDetailResponse>
+    fun getBoardDetail(userId: Long, boardId: Long): BoardDetailResponse
+    fun findAllBoard(q: String?, sortBy: String, userId: Long): List<BoardDetailResponse>
 }

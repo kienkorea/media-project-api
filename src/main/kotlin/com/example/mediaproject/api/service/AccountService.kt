@@ -12,5 +12,7 @@ interface AccountService {
     fun checkDuplicatePhoneNumber(checkDuplicatePhoneNumber: String): Boolean
     fun signUp(signUpRequest: SignUpRequest, httpResponse: HttpServletResponse): AccountResponse
     fun signIn(signInRequest: SignInRequest, httpResponse: HttpServletResponse): AccountResponse
+    fun checkDuplicateName(username: String): Boolean
+    fun checkDuplicateEmail(email: String): Boolean
 
 }

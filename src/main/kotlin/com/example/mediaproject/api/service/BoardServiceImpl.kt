@@ -35,11 +35,9 @@ class BoardServiceImpl(
 
     @Transactional
     override fun patchBoard(boardId: Long, patchBoardRequest: PatchBoardRequest): BoardResponse {
-        val foundUser: User = userRepository.findById(patchBoardRequest.userId)
-        .orElseThrow { throw BadRequestException("유저 정보를 찾을 수 없습니다. -> ${patchBoardRequest.userId}") }
         val foundBoard: Board = boardRepository.findById(boardId)
             .orElseThrow { throw BadRequestException("보드 정보를 찾을 수 없습니다. -> $boardId") }
-        patchOf(foundBoard, foundUser, patchBoardRequest)
+        patchOf(foundBoard, patchBoardRequest)
         return boardResponseOf(foundBoard)
     }
 
@@ -50,15 +48,15 @@ class BoardServiceImpl(
         return !boardRepository.existsBoardById(foundBoard.id)
     }
 
-    override fun findAllBoard(q: String?, sortBy: String): List<BoardDetailResponse> {
+    override fun findAllBoard(q: String?, sortBy: String, userId: Long): List<BoardDetailResponse> {
         val boardList: List<Board> = boardRepositorySupport.findAllBoard(q, sortBy)
-        return boardList.stream().map { boardDetailResponseOf(it) }.toList()
+        return boardList.stream().map { boardDetailResponseOf(it, userId) }.toList()
     }
 
-    override fun getBoardDetail(boardId: Long): BoardDetailResponse {
+    override fun getBoardDetail(userId: Long, boardId: Long): BoardDetailResponse {
         val foundBoard: Board = boardRepository.findById(boardId)
             .orElseThrow { throw BadRequestException("보드 정보를 찾을 수 없습니다. -> $boardId") }
-        return boardDetailResponseOf(foundBoard)
+        return boardDetailResponseOf(foundBoard, userId)
     }
 
 }

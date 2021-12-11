@@ -41,6 +41,9 @@ dependencies {
     // PhoneNumberUtils
     implementation("com.googlecode.libphonenumber:libphonenumber:3.5")
 
+    // EmailUtils
+    implementation("commons-validator:commons-validator:1.7")
+
     // security
     implementation("org.springframework.boot:spring-boot-starter-security")
 

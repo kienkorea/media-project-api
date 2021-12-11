@@ -5,6 +5,7 @@ import com.example.mediaproject.api.request.SignUpRequest
 import com.example.mediaproject.api.response.*
 import com.example.mediaproject.common.exception.BadRequestException
 import com.example.mediaproject.common.exception.NotFoundException
+import com.example.mediaproject.common.utils.normalizeEmail
 import com.example.mediaproject.common.utils.normalizePhoneNumber
 import com.example.mediaproject.db.entity.User
 import com.example.mediaproject.db.enumerable.UserRole
@@ -54,5 +55,17 @@ class AccountServiceImpl(
         val userResponse: UserResponse = userResponseOf(user)
         val tokenResponse: TokenResponse = tokenService.refreshTokenByPhoneNumber(httpResponse, userResponse.id)
         return accountResponseOf(userResponse, tokenResponse)
+    }
+
+    override fun checkDuplicateName(username: String): Boolean {
+        val foundUserList: MutableList<User> = userRepository.findAllByName(username)
+        return foundUserList.any { !it.isDeleted }
+    }
+
+    override fun checkDuplicateEmail(email: String): Boolean {
+        val normalizeEmail = normalizeEmail(email)
+        if(normalizeEmail == false) throw BadRequestException("입력하신 이메일 형식을  맞지않습니다. -> $email")
+        val foundUserList: MutableList<User> = userRepository.findAllByEmail(email)
+        return foundUserList.any { !it.isDeleted }
     }
 }
