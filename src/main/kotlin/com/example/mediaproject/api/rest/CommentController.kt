@@ -35,12 +35,11 @@ class CommentController(
         return ResponseEntity.ok(response)
     }
 
-//    @DeleteMapping
-//    fun deleteComment(
-//        @RequestAttribute userId: Long,
-//        @RequestParam commentId: Long,
-//    ): ResponseEntity<Boolean>{
-//        val response: Boolean = commentService.deleteComment(userId, commentId)
-//        return ResponseEntity.ok(response)
-//    }
+    @DeleteMapping("/{commentId}")
+    fun deleteComment(
+        @PathVariable commentId: Long,
+    ): ResponseEntity<Boolean>{
+        val response: Boolean = commentService.deleteComment(commentId)
+        return ResponseEntity.ok(response)
+    }
 }
