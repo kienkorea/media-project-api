@@ -13,6 +13,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import retrofit2.Response
+import java.lang.Integer.min
 import javax.transaction.Transactional
 import kotlin.streams.toList
 
@@ -29,7 +30,12 @@ class StockCompanyServiceImpl(
     override fun getCompanyStockData(q: String?): List<CompanyResponse> {
         val companyList: List<Company> = companyRepositorySupport.getAllCompanyWithQ(q)
 
-        val naverStockItemList: List<NaverStockItem> = requestToNaverStock(companyList)
+        val naverStockItemList: MutableList<NaverStockItem> = mutableListOf()
+        var idx = 0
+        while (idx <= companyList.size) {
+            naverStockItemList.addAll(requestToNaverStock(companyList.subList(idx, min(idx+15, companyList.size))))
+            idx += 15
+        }
 
         return naverStockItemList.map { companyResponseOf(it) }
     }
