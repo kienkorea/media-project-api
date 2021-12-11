@@ -13,5 +13,5 @@ interface BoardService{
     fun patchBoard(boardId: Long, patchBoardRequest: PatchBoardRequest): BoardResponse
     fun deleteBoard(boardId: Long): Boolean
     fun getBoardDetail(userId: Long, boardId: Long): BoardDetailResponse
-    fun findAllBoard(q: String?, sortBy: String): List<BoardDetailResponse>
+    fun findAllBoard(q: String?, sortBy: String, userId: Long): List<BoardDetailResponse>
 }

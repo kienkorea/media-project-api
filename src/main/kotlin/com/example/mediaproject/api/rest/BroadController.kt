@@ -52,10 +52,11 @@ class BroadController(
     @ApiOperation("보드 리스트 조회 && 필터링 기능")
     @GetMapping("/list")
     fun findAllBoard(
+        @RequestAttribute userId: Long,
         @RequestParam("q", required = false) q: String?,
         @RequestParam("sortBy", required = true) sortBy: String
     ): ResponseEntity<List<BoardDetailResponse>> {
-        val response: List<BoardDetailResponse> = boardService.findAllBoard(q, sortBy)
+        val response: List<BoardDetailResponse> = boardService.findAllBoard(q, sortBy, userId)
         return ResponseEntity.ok(response)
     }
 

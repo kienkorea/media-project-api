@@ -48,9 +48,9 @@ class BoardServiceImpl(
         return !boardRepository.existsBoardById(foundBoard.id)
     }
 
-    override fun findAllBoard(q: String?, sortBy: String): List<BoardDetailResponse> {
+    override fun findAllBoard(q: String?, sortBy: String, userId: Long): List<BoardDetailResponse> {
         val boardList: List<Board> = boardRepositorySupport.findAllBoard(q, sortBy)
-        return boardList.stream().map { boardDetailResponseOf(it) }.toList()
+        return boardList.stream().map { boardDetailResponseOf(it, userId) }.toList()
     }
 
     override fun getBoardDetail(userId: Long, boardId: Long): BoardDetailResponse {
