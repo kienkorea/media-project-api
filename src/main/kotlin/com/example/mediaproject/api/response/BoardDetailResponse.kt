@@ -14,7 +14,8 @@ data class BoardDetailResponse(
     val totalLike: Long,
     val totalComment: Long,
 
-    val commentListResponse: List<CommentResponse> = mutableListOf()
+    val commentListResponse: List<CommentResponse> = mutableListOf(),
+    val isMyBoard: Boolean = false
 )
 
 fun boardDetailResponseOf(board: Board): BoardDetailResponse {
@@ -27,5 +28,21 @@ fun boardDetailResponseOf(board: Board): BoardDetailResponse {
         board.likeList.size.toLong(),
         board.commentList.size.toLong(),
         board.commentList.stream().map { commentResponseOf(it) }.toList()
+    )
+}
+
+fun boardDetailResponseOf(board: Board, userId: Long): BoardDetailResponse {
+    var isMyBoard = false
+    if(board.user.id == userId) isMyBoard = true
+    return BoardDetailResponse(
+        board.id,
+        board.user.id,
+        board.user.name,
+        board.createdAt,
+        board.content,
+        board.likeList.size.toLong(),
+        board.commentList.size.toLong(),
+        board.commentList.stream().map { commentResponseOf(it, userId) }.toList(),
+        isMyBoard
     )
 }

@@ -35,9 +35,8 @@ fun postOf(postBoardRequest: PostBoardRequest, user: User): Board{
     }
 }
 
-fun patchOf(board: Board, user: User, patchBoardRequest: PatchBoardRequest): Board{
+fun patchOf(board: Board, patchBoardRequest: PatchBoardRequest): Board{
     board.updatedAt = LocalDateTime.now()
-    if(patchBoardRequest.content != null) board.content = patchBoardRequest.content
-    board.user = user
+    board.content = patchBoardRequest.content
     return board
 }

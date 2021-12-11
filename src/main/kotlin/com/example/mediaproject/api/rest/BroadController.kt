@@ -17,7 +17,7 @@ class BroadController(
     @ApiOperation("보드를 올리기")
     @PostMapping
     fun postBoard(
-        @RequestParam userId: Long,
+        @RequestAttribute userId: Long,
         @RequestBody postBoardRequest: PostBoardRequest
     ): ResponseEntity<BoardResponse> {
         val response: BoardResponse = boardService.postBoard(userId, postBoardRequest)
@@ -43,12 +43,13 @@ class BroadController(
     @ApiOperation("보드를 상세보기 (댓글 리스트 조회 포함)")
     @GetMapping("/{boardId}/detail")
     fun getBoardDetail(
+        @RequestAttribute userId: Long,
         @PathVariable("boardId") boardId: Long
     ): ResponseEntity<BoardDetailResponse> {
-        val response: BoardDetailResponse = boardService.getBoardDetail(boardId)
+        val response: BoardDetailResponse = boardService.getBoardDetail(userId, boardId)
         return ResponseEntity.ok(response)
     }
-    @ApiOperation("보드 리스트 조회 (보드 응답에 댓글 없음)")
+    @ApiOperation("보드 리스트 조회 && 필터링 기능")
     @GetMapping("/list")
     fun findAllBoard(
         @RequestParam("q", required = false) q: String?,

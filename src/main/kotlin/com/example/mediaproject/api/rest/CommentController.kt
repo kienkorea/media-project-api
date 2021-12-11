@@ -16,7 +16,7 @@ class CommentController(
     @ApiOperation("댓글을 남기기")
     @PostMapping
     fun postComment(
-        @RequestParam userId: Long,
+        @RequestAttribute userId: Long,
         @RequestParam boardId: Long,
         @RequestBody commentRequest: CommentRequest
     ): ResponseEntity<CommentResponse>{
@@ -27,7 +27,7 @@ class CommentController(
     @ApiOperation("댓글을 편집하기")
     @PatchMapping("/{commentId}")
     fun patchComment(
-        @RequestParam userId: Long,
+        @RequestAttribute userId: Long,
         @PathVariable commentId: Long,
         @RequestBody commentRequest: CommentRequest
     ): ResponseEntity<CommentResponse>{
