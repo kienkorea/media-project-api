@@ -21,10 +21,10 @@ class Board {
 
     var isLiked: Boolean = false
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var commentList: MutableList<Comment> = mutableListOf()
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var likeList: MutableList<BoardLike> = mutableListOf()
 
 }
