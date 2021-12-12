@@ -33,6 +33,9 @@ class User: UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     var commentList: MutableList<Comment> = mutableListOf()
 
+    @OneToMany(mappedBy = "user" , fetch = FetchType.LAZY)
+    var bookmarkedCompanyList: List<BookmarkedCompany> = mutableListOf()
+
     override fun getAuthorities(): MutableCollection<out GrantedAuthority>? {
         return null
     }

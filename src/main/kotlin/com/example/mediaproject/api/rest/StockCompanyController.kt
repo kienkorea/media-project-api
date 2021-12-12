@@ -16,9 +16,10 @@ class StockCompanyController(
 
     @GetMapping("/list")
     fun getCompanyStockListByApiKey(
+        @RequestAttribute userId: Long,
         @RequestParam("q", required = false) q: String?
     ): ResponseEntity<List<CompanyResponse>> {
-        return ResponseEntity.ok(stockCompanyService.getCompanyStockData(q))
+        return ResponseEntity.ok(stockCompanyService.getCompanyStockData(q, userId))
     }
 
     @GetMapping("/{companyCode}")
