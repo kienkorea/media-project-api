@@ -43,6 +43,10 @@ class StockCompanyServiceImpl(
             idx += 15
         }
 
+        bookmarkedCompanyList.forEach { bookmarkedCompany ->
+            naverStockItemList.filter { it.itemcode == bookmarkedCompany.company.companyCode }.forEach { item -> item.isBookmarked = true }
+        }
+
         return naverStockItemList.map { companyResponseOf(it) }
     }
 

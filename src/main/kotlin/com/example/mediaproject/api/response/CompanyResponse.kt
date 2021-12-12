@@ -7,6 +7,7 @@ data class CompanyResponse (
     val change_val: String,
     val change_rate: String,
     val risefall: String,
+    val isBookmarked: Boolean,
     val naverNewsResponseList: List<NaverNewsResponse> = mutableListOf()
 )
 
@@ -17,7 +18,8 @@ fun companyResponseOf(naverStockItem: NaverStockItem): CompanyResponse{
         stockPrice = naverStockItem.now_val,
         change_val = naverStockItem.change_val,
         change_rate = naverStockItem.change_rate,
-        risefall = naverStockItem.risefall
+        risefall = naverStockItem.risefall,
+        isBookmarked = naverStockItem.isBookmarked
     )
 }
 
@@ -29,6 +31,7 @@ fun companyResponseOf(naverStockItem: NaverStockItem, naverNewsResponseList: Lis
         change_val = naverStockItem.change_val,
         change_rate = naverStockItem.change_rate,
         risefall = naverStockItem.risefall,
+        isBookmarked = naverStockItem.isBookmarked,
         naverNewsResponseList = naverNewsResponseList
     )
 }
