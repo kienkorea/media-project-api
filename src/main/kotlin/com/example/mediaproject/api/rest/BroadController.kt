@@ -23,18 +23,20 @@ class BroadController(
         val response: BoardResponse = boardService.postBoard(userId, postBoardRequest)
         return ResponseEntity.ok(response)
     }
-    @ApiOperation("보드를 편집하기")
+    @ApiOperation("보드를 편집하기, 자기가 쓴 보드만 편집할 수 있음")
     @PatchMapping("/{boardId}")
     fun patchBoard(
+        @RequestAttribute userId: Long,
         @PathVariable("boardId") boardId: Long,
         @RequestBody patchBoardRequest: PatchBoardRequest
     ): ResponseEntity<BoardResponse> {
-        val response: BoardResponse = boardService.patchBoard(boardId, patchBoardRequest)
+        val response: BoardResponse = boardService.patchBoard(boardId, patchBoardRequest, userId)
         return ResponseEntity.ok(response)
     }
-    @ApiOperation("보드를 삭제하기")
+    @ApiOperation("보드를 삭제하기, 자기가 쓴 보드만 삭제할 수 있음")
     @DeleteMapping("/{boardId}")
     fun deleteBoard(
+        @RequestAttribute userId: Long,
         @PathVariable("boardId") boardId: Long
     ): ResponseEntity<Boolean> {
         val response: Boolean = boardService.deleteBoard(boardId)
@@ -49,7 +51,7 @@ class BroadController(
         val response: BoardDetailResponse = boardService.getBoardDetail(userId, boardId)
         return ResponseEntity.ok(response)
     }
-    @ApiOperation("보드 리스트 조회 && 필터링 기능")
+    @ApiOperation("보드 리스트 조회 && 필터링 기능. 소트 파라미터 sortBy=createdAt(최신 탭) && sortBy=likeCount(인기 탭)")
     @GetMapping("/list")
     fun findAllBoard(
         @RequestAttribute userId: Long,

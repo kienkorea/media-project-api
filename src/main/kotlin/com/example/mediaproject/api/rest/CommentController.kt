@@ -35,11 +35,13 @@ class CommentController(
         return ResponseEntity.ok(response)
     }
 
+    @ApiOperation("댓글 삭제하기, 자기가 쓴 댓글만 삭제할 수 있음")
     @DeleteMapping("/{commentId}")
     fun deleteComment(
+        @RequestAttribute userId: Long,
         @PathVariable commentId: Long,
     ): ResponseEntity<Boolean>{
-        val response: Boolean = commentService.deleteComment(commentId)
+        val response: Boolean = commentService.deleteComment(commentId, userId)
         return ResponseEntity.ok(response)
     }
 }

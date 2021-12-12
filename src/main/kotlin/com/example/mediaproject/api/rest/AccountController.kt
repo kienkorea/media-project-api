@@ -41,7 +41,7 @@ class AccountController(
         return  ResponseEntity.ok(response)
     }
 
-    @ApiOperation("핸드폰 번호 중복 체크")
+    @ApiOperation("이름 중복 체크")
     @PostMapping("/check-duplicate-name")
     fun checkDuplicateName(
         @RequestParam username: String
@@ -50,7 +50,7 @@ class AccountController(
         return  ResponseEntity.ok(response)
     }
 
-    @ApiOperation("핸드폰 번호 중복 체크")
+    @ApiOperation("이메일 중복 체크")
     @PostMapping("/check-duplicate-email")
     fun checkDuplicateEmail(
         @RequestParam email: String

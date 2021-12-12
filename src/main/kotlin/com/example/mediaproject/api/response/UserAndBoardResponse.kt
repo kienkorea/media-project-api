@@ -9,10 +9,10 @@ data class UserAndBoardResponse(
     val email: String?,
     val phoneNumber: String,
     val userRole: UserRole,
-    val boardListResponse: List<BoardResponse> = mutableListOf()
+    val boardListResponse: List<BoardDetailResponse> = mutableListOf()
 )
 
-fun ofUserAndBoardResponse(user: User, boardList: List<BoardResponse>): UserAndBoardResponse {
+fun ofUserAndBoardResponse(user: User, boardList: List<BoardDetailResponse>): UserAndBoardResponse {
     return UserAndBoardResponse(
         user.id,
         user.name,

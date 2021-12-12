@@ -4,9 +4,9 @@ import com.example.mediaproject.api.request.ChangePasswordRequest
 import com.example.mediaproject.api.response.*
 import com.example.mediaproject.common.exception.BadRequestException
 import com.example.mediaproject.common.exception.NotFoundException
-import com.example.mediaproject.db.entity.Board
 import com.example.mediaproject.db.entity.User
 import com.example.mediaproject.db.repository.BoardRepository
+import com.example.mediaproject.db.repository.CommentRepository
 import com.example.mediaproject.db.repository.UserRepository
 import com.example.mediaproject.db.repository.UserRepositorySupport
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -19,9 +19,10 @@ import kotlin.streams.toList
 class UserServiceImpl(
     private val userRepository: UserRepository,
     private val boardRepository: BoardRepository,
+    private val commentRepository: CommentRepository,
     private val userRepositorySupport: UserRepositorySupport
 
-    ) : UserService {
+) : UserService {
 
     override fun getMe(userId: Long): UserResponse {
         val foundUser: User =
@@ -30,12 +31,23 @@ class UserServiceImpl(
         return userResponseOf(foundUser)
     }
 
-    override fun getAllMyBoard(userId: Long): UserAndBoardResponse {
+    override fun getAllMyBoard(userId: Long): List<BoardDetailResponse> {
         val foundUser: User =
             userRepository.findById(userId).orElseThrow { NotFoundException("유저 정보를 찾을 수 없습니다. -> $userId") }
-        if (foundUser.isDeleted) throw NotFoundException("삭제 된 유저입니다. -> ${foundUser.phoneNumber}")
-        val boardResponseList: List<BoardResponse> =
-            boardRepository.findAllByUserId(userId).stream().map { boardResponseOf(it) }.toList()
+        return boardRepository.findAllByUserId(userId).stream().map { boardDetailResponseOf(it, userId) }.toList()
+    }
+
+    override fun getAllMyComment(userId: Long): List<CommentResponse> {
+        val foundUser: User =
+            userRepository.findById(userId).orElseThrow { NotFoundException("유저 정보를 찾을 수 없습니다. -> $userId") }
+        return commentRepository.findAllByUserId(userId).stream().map { commentResponseOf(it, userId) }.toList()
+    }
+
+    override fun getMyLikeBoardList(userId: Long): UserAndBoardResponse {
+        val foundUser: User =
+            userRepository.findById(userId).orElseThrow { NotFoundException("유저 정보를 찾을 수 없습니다. -> $userId") }
+        val boardResponseList: List<BoardDetailResponse> = userRepositorySupport.getMyLikeBoardList(userId)
+            .stream().map { boardDetailResponseOf(it, userId) }.toList()
         return ofUserAndBoardResponse(foundUser, boardResponseList)
     }
 
@@ -61,14 +73,6 @@ class UserServiceImpl(
         foundUser.loginPassWord = BCryptPasswordEncoder().encode(changePasswordRequest.newPassword)
         foundUser.needChangePassword = false
         return userResponseOf(foundUser)
-    }
-
-    override fun getMyLikeBoardList(userId: Long): UserAndBoardResponse {
-        val foundUser: User =
-            userRepository.findById(userId).orElseThrow { NotFoundException("유저 정보를 찾을 수 없습니다. -> $userId") }
-        val boardResponseList: List<BoardResponse> = userRepositorySupport.getMyLikeBoardList(userId)
-            .stream().map { boardResponseOf(it) }.toList()
-        return ofUserAndBoardResponse(foundUser, boardResponseList)
     }
 
     override fun getAllUser(q: String?): List<UserResponse> {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 @Service
 interface BoardService{
     fun postBoard(userId: Long, postBoardRequest: PostBoardRequest): BoardResponse
-    fun patchBoard(boardId: Long, patchBoardRequest: PatchBoardRequest): BoardResponse
+    fun patchBoard(boardId: Long, patchBoardRequest: PatchBoardRequest, userId: Long): BoardResponse
     fun deleteBoard(boardId: Long): Boolean
     fun getBoardDetail(userId: Long, boardId: Long): BoardDetailResponse
     fun findAllBoard(q: String?, sortBy: String, userId: Long): List<BoardDetailResponse>
