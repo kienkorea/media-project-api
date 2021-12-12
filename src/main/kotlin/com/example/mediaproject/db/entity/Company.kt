@@ -14,6 +14,9 @@ class Company {
     lateinit var name: String
     @Column(unique = true)
     var companyCode: String = ""
+
+    @OneToMany(mappedBy = "company" , fetch = FetchType.LAZY)
+    var bookmarkedCompanyList: List<BookmarkedCompany> = mutableListOf()
 }
 
 fun companyOf(companyRequest: CompanyRequest): Company{
