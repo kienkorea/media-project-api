@@ -3,8 +3,10 @@ package com.example.mediaproject.api.service
 import com.example.mediaproject.api.request.CompanyRequest
 import com.example.mediaproject.api.response.*
 import com.example.mediaproject.common.exception.BadRequestException
+import com.example.mediaproject.db.entity.BookmarkedCompany
 import com.example.mediaproject.db.entity.Company
 import com.example.mediaproject.db.entity.companyOf
+import com.example.mediaproject.db.repository.BookmarkedCompanyRepository
 import com.example.mediaproject.db.repository.CompanyRepository
 import com.example.mediaproject.db.repository.CompanyRepositorySupport
 import org.jsoup.Jsoup
@@ -22,12 +24,16 @@ import kotlin.streams.toList
 class StockCompanyServiceImpl(
     private val naverStockPriceService: NaverStockPriceService,
     private val companyRepository: CompanyRepository,
-    private val companyRepositorySupport: CompanyRepositorySupport
+    private val companyRepositorySupport: CompanyRepositorySupport,
+    private val bookmarkedCompanyRepository: BookmarkedCompanyRepository
 ) : StockCompanyService {
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
     private val baseUrl: String = "https://search.naver.com/search.naver?where=news&sm=tab_jum&query="
 
-    override fun getCompanyStockData(q: String?): List<CompanyResponse> {
+    override fun getCompanyStockData(q: String?, userId: Long): List<CompanyResponse> {
+        // TODO 유저가 관심 회사를 눌렀는지 구별하는 코드
+        val bookmarkedCompanyList: MutableList<BookmarkedCompany> = bookmarkedCompanyRepository.findAllByUserId(userId)
+
         val companyList: List<Company> = companyRepositorySupport.getAllCompanyWithQ(q)
 
         val naverStockItemList: MutableList<NaverStockItem> = mutableListOf()

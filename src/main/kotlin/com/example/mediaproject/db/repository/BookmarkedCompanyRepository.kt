@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface BookmarkedCompanyRepository: JpaRepository<BookmarkedCompany, Long>{
-
+    fun findAllByUserId(userId: Long): MutableList<BookmarkedCompany>
 }
