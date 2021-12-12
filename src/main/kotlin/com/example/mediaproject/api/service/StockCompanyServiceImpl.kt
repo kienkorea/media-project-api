@@ -31,7 +31,6 @@ class StockCompanyServiceImpl(
     private val baseUrl: String = "https://search.naver.com/search.naver?where=news&sm=tab_jum&query="
 
     override fun getCompanyStockData(q: String?, userId: Long): List<CompanyResponse> {
-        // TODO 유저가 관심 회사를 눌렀는지 구별하는 코드
         val bookmarkedCompanyList: MutableList<BookmarkedCompany> = bookmarkedCompanyRepository.findAllByUserId(userId)
 
         val companyList: List<Company> = companyRepositorySupport.getAllCompanyWithQ(q)
@@ -107,12 +106,4 @@ class StockCompanyServiceImpl(
         return naverNewsResponseList
     }
 
-    // 지금 사용하지 않음
-//    private fun requestDetailToNaverStock(company: Company): NaverStockItem {
-//        val stringBuilder = StringBuilder("naver_stock_codeList=")
-//        stringBuilder.append(company.companyCode + "%7C")
-//        val response: Response<NaverStockItem> =
-//            naverStockPriceService.getOneStockDetail(stringBuilder.toString()).execute()
-//        return response.body() ?: throw NotFoundException("주식 회사 정보를 찾을 수 없습니다. -> ${company.companyCode}")
-//    }
 }

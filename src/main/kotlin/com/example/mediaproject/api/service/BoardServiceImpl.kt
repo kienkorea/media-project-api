@@ -34,7 +34,7 @@ class BoardServiceImpl(
     }
 
     @Transactional
-    override fun patchBoard(boardId: Long, patchBoardRequest: PatchBoardRequest): BoardResponse {
+    override fun patchBoard(boardId: Long, patchBoardRequest: PatchBoardRequest, userId: Long): BoardResponse {
         val foundBoard: Board = boardRepository.findById(boardId)
             .orElseThrow { throw BadRequestException("보드 정보를 찾을 수 없습니다. -> $boardId") }
         patchOf(foundBoard, patchBoardRequest)

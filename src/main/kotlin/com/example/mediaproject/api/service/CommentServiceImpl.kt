@@ -44,7 +44,7 @@ class CommentServiceImpl(
         return commentResponseOf(commentRepository.save(foundComment))
     }
 
-    override fun deleteComment(commentId: Long): Boolean {
+    override fun deleteComment(commentId: Long, userId: Long): Boolean {
         val foundComment: Comment = commentRepository.findById(commentId)
             .orElseThrow { throw BadRequestException("댓글 정보를 찾을 수 없습니다. -> $commentId") }
         commentRepository.delete(foundComment)

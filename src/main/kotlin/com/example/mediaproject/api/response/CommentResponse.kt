@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 data class CommentResponse(
     val id: Long,
     val createdAt: LocalDateTime,
-//    val content: String,
+    val content: String,
     val userId: Long,
     val userName: String,
     val boardId: Long,
@@ -17,7 +17,7 @@ fun commentResponseOf(comment: Comment): CommentResponse{
     return CommentResponse(
         comment.id,
         comment.createdAt,
-//        comment.content,
+        comment.content,
         comment.user.id,
         comment.user.name,
         comment.board.id,
@@ -31,7 +31,7 @@ fun commentResponseOf(comment: Comment, userId: Long): CommentResponse{
     return CommentResponse(
         comment.id,
         comment.createdAt,
-//        comment.content,
+        comment.content,
         comment.user.id,
         comment.user.name,
         comment.board.id,
