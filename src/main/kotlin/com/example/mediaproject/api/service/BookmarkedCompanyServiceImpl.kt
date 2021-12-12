@@ -28,5 +28,12 @@ class BookmarkedCompanyServiceImpl(
         return bookmarkedCompanyResponseOf(bookmarkedCompanyRepository.save(bookmarkedCompany))
     }
 
+    override fun deleteBookMarkedCompany(bookMarkedId: Long): Boolean {
+        val foundCompany: BookmarkedCompany = bookmarkedCompanyRepository.findById(bookMarkedId)
+            .orElseThrow { NotFoundException("관심 회사 정보를 찾을 수 없습니다. -> $bookMarkedId") }
+        bookmarkedCompanyRepository.delete(foundCompany)
+        return !bookmarkedCompanyRepository.existsById(foundCompany.id)
+    }
+
 
 }

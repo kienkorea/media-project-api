@@ -33,7 +33,7 @@ class StockCompanyServiceImpl(
         val naverStockItemList: MutableList<NaverStockItem> = mutableListOf()
         var idx = 0
         while (idx <= companyList.size) {
-            naverStockItemList.addAll(requestToNaverStock(companyList.subList(idx, min(idx+15, companyList.size))))
+            naverStockItemList.addAll(this.requestToNaverStock(companyList.subList(idx, min(idx+15, companyList.size))))
             idx += 15
         }
 
