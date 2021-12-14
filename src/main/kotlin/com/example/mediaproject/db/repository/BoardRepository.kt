@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface BoardRepository: JpaRepository<Board, Long> {
     fun existsBoardById(boardId: Long): Boolean
-    fun findAllByUserId(userId: Long): List<Board>
+    fun findAllByUserIdOrderByCreatedAtDesc(userId: Long): List<Board>
 }

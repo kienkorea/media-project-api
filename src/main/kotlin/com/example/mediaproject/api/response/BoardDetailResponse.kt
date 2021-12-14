@@ -10,7 +10,7 @@ data class BoardDetailResponse(
     val authorName: String,
 
     val createAt: LocalDateTime? = null,
-//    val content: String,
+    val content: String,
     val totalLike: Long,
     val totalComment: Long,
 
@@ -20,22 +20,9 @@ data class BoardDetailResponse(
 
 )
 
-fun boardDetailResponseOf(board: Board): BoardDetailResponse {
-    return BoardDetailResponse(
-        board.id,
-        board.user.id,
-        board.user.name,
-        board.createdAt,
-//        board.content,
-        board.likeList.size.toLong(),
-        board.commentList.size.toLong(),
-        board.commentList.stream().map { commentResponseOf(it) }.toList()
-    )
-}
-
 fun boardDetailResponseOf(board: Board, userId: Long): BoardDetailResponse {
     var isMyBoard = false
-    var isLiked: Boolean = false
+    var isLiked = false
 
     if(board.user.id == userId) isMyBoard = true
     if(board.likeList.any { it.user.id == userId} ) isLiked = true
@@ -44,7 +31,7 @@ fun boardDetailResponseOf(board: Board, userId: Long): BoardDetailResponse {
         board.user.id,
         board.user.name,
         board.createdAt,
-//        board.content,
+        board.content,
         board.likeList.size.toLong(),
         board.commentList.size.toLong(),
         board.commentList.stream().map { commentResponseOf(it, userId) }.toList(),

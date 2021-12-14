@@ -19,8 +19,6 @@ class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     lateinit var user: User
 
-    var isLiked: Boolean = false
-
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var commentList: MutableList<Comment> = mutableListOf()
 

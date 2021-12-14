@@ -5,10 +5,7 @@ import com.example.mediaproject.api.response.*
 import com.example.mediaproject.common.exception.BadRequestException
 import com.example.mediaproject.common.exception.NotFoundException
 import com.example.mediaproject.db.entity.User
-import com.example.mediaproject.db.repository.BoardRepository
-import com.example.mediaproject.db.repository.CommentRepository
-import com.example.mediaproject.db.repository.UserRepository
-import com.example.mediaproject.db.repository.UserRepositorySupport
+import com.example.mediaproject.db.repository.*
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
@@ -20,6 +17,7 @@ class UserServiceImpl(
     private val userRepository: UserRepository,
     private val boardRepository: BoardRepository,
     private val commentRepository: CommentRepository,
+    private val commentRepositorySupport: CommentRepositorySupport,
     private val userRepositorySupport: UserRepositorySupport
 
 ) : UserService {
@@ -34,13 +32,14 @@ class UserServiceImpl(
     override fun getAllMyBoard(userId: Long): List<BoardDetailResponse> {
         val foundUser: User =
             userRepository.findById(userId).orElseThrow { NotFoundException("유저 정보를 찾을 수 없습니다. -> $userId") }
-        return boardRepository.findAllByUserId(userId).stream().map { boardDetailResponseOf(it, userId) }.toList()
+        return boardRepository.findAllByUserIdOrderByCreatedAtDesc(userId).stream().map { boardDetailResponseOf(it, userId) }.toList()
     }
 
     override fun getAllMyComment(userId: Long): List<CommentResponse> {
         val foundUser: User =
             userRepository.findById(userId).orElseThrow { NotFoundException("유저 정보를 찾을 수 없습니다. -> $userId") }
-        return commentRepository.findAllByUserId(userId).stream().map { commentResponseOf(it, userId) }.toList()
+        return commentRepository.findAllByUserIdOrderByCreatedAtDesc(userId).stream()
+            .map { commentResponseOf(it, userId) }.toList()
     }
 
     override fun getMyLikeBoardList(userId: Long): UserAndBoardResponse {
