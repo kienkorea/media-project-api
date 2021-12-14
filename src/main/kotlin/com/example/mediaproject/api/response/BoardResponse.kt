@@ -13,7 +13,6 @@ data class BoardResponse(
     val content: String,
     val totalLike: Long,
     val totalComment: Long,
-//    val isLiked: Boolean
 
 )
 fun boardResponseOf(board: Board): BoardResponse{

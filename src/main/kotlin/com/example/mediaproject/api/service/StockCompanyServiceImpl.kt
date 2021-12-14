@@ -46,7 +46,8 @@ class StockCompanyServiceImpl(
             naverStockItemList.filter { it.itemcode == bookmarkedCompany.company.companyCode }.forEach { item -> item.isBookmarked = true }
         }
 
-        return naverStockItemList.map { companyResponseOf(it) }
+        return naverStockItemList.map { company ->
+            companyResponseOf(company, requestNewsToNaver( company.itemname +" 주식")) }
     }
 
     override fun feedCompanyStockData(nextId: Long): List<CompanyResponse> {
@@ -98,7 +99,7 @@ class StockCompanyServiceImpl(
                 if (it.select("a.dsc_thumb > img").isNotEmpty()) {
                     val imgTag = it.select("a.dsc_thumb > img")[0]
                     imageUrl = imgTag.attr("src") // imageUrl
-                    logger.info("Title: $title: ———> Link: $newsUrl ——> Image: $imageUrl")
+//                    logger.info("Title: $title: ———> Link: $newsUrl ——> Image: $imageUrl")
                 }
                 naverNewsResponseList.add(NaverNewsResponse(title, newsUrl, imageUrl))
             }

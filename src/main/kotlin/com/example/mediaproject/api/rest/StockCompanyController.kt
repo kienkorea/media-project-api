@@ -19,7 +19,7 @@ class StockCompanyController(
             "응답 보디에 isBookmarked = true -> 자기가 관심 누른 회사" +
             "응답 보디에 isBookmarked = false -> 자기가 관심 안 하는 회사")
     @GetMapping("/list")
-    fun getCompanyStockListByApiKey(
+    fun getCompanyStockList(
         @RequestAttribute userId: Long,
         @RequestParam("q", required = false) q: String?
     ): ResponseEntity<List<CompanyResponse>> {
