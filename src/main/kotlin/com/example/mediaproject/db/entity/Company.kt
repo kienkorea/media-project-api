@@ -17,6 +17,8 @@ class Company {
 
     @OneToMany(mappedBy = "company" , fetch = FetchType.LAZY)
     var bookmarkedCompanyList: List<BookmarkedCompany> = mutableListOf()
+    var companyImageUrl: String? = null
+
 }
 
 fun companyOf(companyRequest: CompanyRequest): Company{
