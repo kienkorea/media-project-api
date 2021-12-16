@@ -1,7 +1,6 @@
 package com.example.mediaproject.api.rest
 
 import com.example.mediaproject.api.response.BookmarkedCompanyResponse
-import com.example.mediaproject.api.response.CompanyResponse
 import com.example.mediaproject.api.service.BookmarkedCompanyService
 import io.swagger.annotations.ApiOperation
 import org.springframework.http.ResponseEntity
@@ -17,9 +16,9 @@ class BookmarkedCompanyController(
     @PostMapping
     fun postBookmarkedCompany(
         @RequestAttribute userId: Long,
-        @RequestParam companyId: Long,
+        @RequestParam companyCode: String,
     ): ResponseEntity<BookmarkedCompanyResponse> {
-        val response = bookmarkedCompanyService.postBookmarkedCompany(userId, companyId)
+        val response = bookmarkedCompanyService.postBookmarkedCompany(userId, companyCode)
         return ResponseEntity.ok(response)
     }
 
@@ -27,7 +26,8 @@ class BookmarkedCompanyController(
     fun deleteBookMarkedCompany(
         @PathVariable bookMarkedId: Long
     ): ResponseEntity<Boolean> {
-        return ResponseEntity.ok(bookmarkedCompanyService.deleteBookMarkedCompany(bookMarkedId))
+        val response = bookmarkedCompanyService.deleteBookMarkedCompany(bookMarkedId)
+        return ResponseEntity.ok(response)
     }
 
 }

@@ -16,16 +16,22 @@ data class BoardDetailResponse(
 
     val commentListResponse: List<CommentResponse> = mutableListOf(),
     val isMyBoard: Boolean = false,
-    val isLiked: Boolean = false
+    val isLiked: Boolean = false,
+    val likeId: Long = 0
 
 )
 
 fun boardDetailResponseOf(board: Board, userId: Long): BoardDetailResponse {
     var isMyBoard = false
     var isLiked = false
-
+    var likeId = 0L
     if(board.user.id == userId) isMyBoard = true
-    if(board.likeList.any { it.user.id == userId} ) isLiked = true
+    board.likeList.forEach{
+        if(it.user.id == userId) {
+            likeId = it.id
+            isLiked = true
+        }
+    }
     return BoardDetailResponse(
         board.id,
         board.user.id,
@@ -36,6 +42,7 @@ fun boardDetailResponseOf(board: Board, userId: Long): BoardDetailResponse {
         board.commentList.size.toLong(),
         board.commentList.stream().map { commentResponseOf(it, userId) }.toList(),
         isMyBoard,
-        isLiked
+        isLiked,
+        likeId
     )
 }
