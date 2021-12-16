@@ -38,7 +38,14 @@ class StockCompanyServiceImpl(
         val naverStockItemList: MutableList<NaverStockItem> = mutableListOf()
         var idx = 0
         while (idx <= companyList.size) {
-            naverStockItemList.addAll(this.requestToNaverStock(companyList.subList(idx, min(idx+15, companyList.size))))
+            naverStockItemList.addAll(
+                this.requestToNaverStock(
+                    companyList.subList(
+                        idx,
+                        min(idx + 15, companyList.size)
+                    )
+                )
+            )
             idx += 15
         }
 
@@ -47,7 +54,13 @@ class StockCompanyServiceImpl(
         }
 
         return naverStockItemList.map { company ->
-            companyResponseOf(company, requestNewsToNaver( company.itemname +" 주식")) }
+            var companyImageUrl: String = ""
+            companyList.forEach {
+                if (company.itemcode == it.companyCode)
+                    companyImageUrl = it.companyImageUrl
+            }
+            companyResponseOf(company, requestNewsToNaver(company.itemname + " 주식"), companyImageUrl)
+        }.sortedBy { it.stockPrice }.toList()
     }
 
     override fun feedCompanyStockData(nextId: Long): List<CompanyResponse> {
@@ -71,7 +84,7 @@ class StockCompanyServiceImpl(
 
     override fun getCompanyStockDataDetail(companyCode: String): List<CompanyResponse> {
         val companyList: List<Company> = companyRepository.findAllByCompanyCode(companyCode)
-        if(companyList.isNotEmpty()) {
+        if (companyList.isNotEmpty()) {
             val naverStockItemList: List<NaverStockItem> = requestToNaverStock(companyList)
             val naverNewsResponseList: List<NaverNewsResponse> = requestNewsToNaver(companyList[0].name + " 주식")
             return naverStockItemList.map { companyResponseOf(it, naverNewsResponseList) }
@@ -92,7 +105,7 @@ class StockCompanyServiceImpl(
         var newsUrl = ""
         var imageUrl = ""
         elements.forEach {
-            if(it.select("a.news_tit").isNotEmpty()) {
+            if (it.select("a.news_tit").isNotEmpty()) {
                 val aTag = it.select("a.news_tit")[0]
                 title = aTag.text() // title
                 newsUrl = aTag.attr("href") //newsUrl

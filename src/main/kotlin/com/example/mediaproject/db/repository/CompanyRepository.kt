@@ -9,4 +9,5 @@ import java.util.*
 interface CompanyRepository: JpaRepository<Company, Long> {
     fun existsByName(name: String): Boolean
     fun findAllByCompanyCode(companyCode: String): List<Company>
+    fun findByCompanyCode(companyCode: String): Optional<Company>
 }

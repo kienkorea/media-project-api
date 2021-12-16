@@ -19,11 +19,11 @@ class BookmarkedCompanyServiceImpl(
     private val companyRepository: CompanyRepository
 ) : BookmarkedCompanyService {
 
-    override fun postBookmarkedCompany(userId: Long, companyId: Long): BookmarkedCompanyResponse {
+    override fun postBookmarkedCompany(userId: Long, companyCode: String): BookmarkedCompanyResponse {
         val foundUser: User =
             userRepository.findById(userId).orElseThrow { NotFoundException("유저 정보를 찾을 수 없습니다. -> $userId") }
         val foundCompany: Company =
-            companyRepository.findById(companyId).orElseThrow { NotFoundException("회사 정보를 찾을 수 없습니다. -> $userId") }
+            companyRepository.findByCompanyCode(companyCode).orElseThrow { NotFoundException("회사 정보를 찾을 수 없습니다. -> $companyCode") }
         val bookmarkedCompany: BookmarkedCompany = postBookmarkedCompanyOf(foundUser, foundCompany)
         return bookmarkedCompanyResponseOf(bookmarkedCompanyRepository.save(bookmarkedCompany))
     }
