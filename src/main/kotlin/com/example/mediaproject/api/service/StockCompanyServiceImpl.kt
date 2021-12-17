@@ -13,7 +13,12 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import org.springframework.util.ResourceUtils
 import retrofit2.Response
 import java.lang.Integer.min
 import javax.transaction.Transactional
@@ -29,6 +34,7 @@ class StockCompanyServiceImpl(
 ) : StockCompanyService {
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
     private val baseUrl: String = "https://search.naver.com/search.naver?where=news&sm=tab_jum&query="
+    private val imageBaseUrl = "http://5c4c-182-227-161-146.ngrok.io/media-project/up-down/stocks/image/"
 
     override fun getCompanyStockData(q: String?, userId: Long): List<CompanyResponse> {
         val bookmarkedCompanyList: MutableList<BookmarkedCompany> = bookmarkedCompanyRepository.findAllByUserId(userId)
@@ -57,7 +63,7 @@ class StockCompanyServiceImpl(
             var companyImageUrl: String = ""
             companyList.forEach {
                 if (company.itemcode == it.companyCode)
-                    companyImageUrl = it.companyImageUrl
+                    companyImageUrl = "$imageBaseUrl${it.companyCode}"
             }
             companyResponseOf(company, requestNewsToNaver(company.itemname + " 주식"), companyImageUrl)
         }.sortedBy { it.stockPrice }.toList()
@@ -95,6 +101,15 @@ class StockCompanyServiceImpl(
     @Transactional
     override fun postCompanyList(companyRequestList: List<CompanyRequest>): List<Company> {
         return companyRequestList.stream().map { this.postCompany(it) }.toList()
+    }
+
+    override fun getCompanyImage(companyCode: String): ResponseEntity<ByteArray> {
+        val byteArray = ResourceUtils.getFile("classpath:company_image/$companyCode.png")
+        val header = HttpHeaders().apply {
+            contentType = MediaType.IMAGE_PNG
+            contentLength = byteArray.length()
+        }
+        return ResponseEntity(byteArray.readBytes(), header, HttpStatus.OK)
     }
 
     private fun requestNewsToNaver(keyword: String): List<NaverNewsResponse> {
