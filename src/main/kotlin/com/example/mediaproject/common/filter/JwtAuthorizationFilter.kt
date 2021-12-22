@@ -26,21 +26,17 @@ class JwtAuthorizationFilter(
     authenticationManager: AuthenticationManager?,
     private val userRepository: UserRepository
 ): BasicAuthenticationFilter(authenticationManager) {
-
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
         val logger: Logger = LoggerFactory.getLogger(JwtAuthorizationFilter::class.java)
         if (request.getHeader(AUTHORIZATION) == null) {
             chain.doFilter(request, response)
-            return
-        }
+            return }
         val headerAuthorization: String = request.getHeader(AUTHORIZATION)
 
         if (!headerAuthorization.startsWith(TOKEN_PREFIX)) { // TOKEN_PREFIX == "Bearer "
             logger.debug("토큰이 'Bearer '로 시작하지 않습니다. -> $headerAuthorization")
             chain.doFilter(request, response)
-            return
-        }
-
+            return }
         try {
             val authentication: Authentication? = getUsernamePasswordAuthentication(request)
             if (authentication == null) {

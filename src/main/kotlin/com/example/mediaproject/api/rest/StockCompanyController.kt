@@ -34,6 +34,14 @@ class StockCompanyController(
         return ResponseEntity.ok(stockCompanyService.getCompanyStockDataDetail(companyCode))
     }
 
+    @ApiOperation("회사 상세 정보 조회 API")
+    @GetMapping("/image/{companyCode}")
+    fun getCompanyImage(
+        @PathVariable companyCode: String // http://localhost:8088/media-project/up-down/stocks/image/005930
+    ): ResponseEntity<ByteArray> {
+        return stockCompanyService.getCompanyImage(companyCode)
+    }
+
     @Deprecated("지금 사용하지 않음")
     @GetMapping("/feed")
     fun feedCompanyStockListByApiKey(nextId: Long): ResponseEntity<List<CompanyResponse>> {

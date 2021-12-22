@@ -30,9 +30,7 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.5.5")
     implementation ("org.apache.tomcat.embed:tomcat-embed-jasper")
-    implementation ("javax.servlet:jstl")
 
     // Deprecated
     // Parse from String to Json using Klaxon
@@ -58,15 +56,12 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:4.3.1")
     kapt("com.querydsl:querydsl-apt:4.3.1:jpa")
 
-    // https://mvnrepository.com/artifact/io.split.client/java-client
-    implementation("io.split.client:java-client:3.3.4")
-
     // swagger
     implementation("io.springfox:springfox-boot-starter:3.0.0")
     implementation("io.swagger:swagger-annotations:1.5.21")
     implementation("io.swagger:swagger-models:1.5.21")
 
-    //  MySQL Connector/J » 5.1.6
+    //  MySQL Connector
     implementation("mysql:mysql-connector-java:8.0.26")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
